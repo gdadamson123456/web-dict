@@ -1,20 +1,12 @@
 package com.kostenko.webmydictionary.dao.domain.users;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Index;
-
 import java.io.Serializable;
 
-@Entity
 public class Role implements Serializable {
     public static final String FIELD_ID = "id";
     public static final String FIELD_NAME = "name";
     private static final long serialVersionUID = 598302704073109831L;
-    @Id
-    @Index
     private Long id;
-    @Index
     private String name;
 
     public Role() {

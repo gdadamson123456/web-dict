@@ -1,19 +1,9 @@
 package com.kostenko.webmydictionary.dao.domain.users;
 
-import com.googlecode.objectify.Ref;
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Index;
-import com.googlecode.objectify.annotation.Load;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.sql.Date;
 
-@Entity
-@XmlAccessorType(XmlAccessType.FIELD)
 public class User implements Serializable {
     public static final String FIELD_ID = "id";
     public static final String FIELD_LOGIN = "login";
@@ -24,20 +14,14 @@ public class User implements Serializable {
     public static final String FIELD_BIRTHDAY = "birthday";
     public static final String FIELD_ROLE = "role";
     private static final long serialVersionUID = 788105459979932616L;
-    @Id
-    @Index
     private Long id;
-    @Index
     private String login;
     private String password;
-    @Index
     private String email;
     private String firstName;
     private String lastName;
     @XmlJavaTypeAdapter(SqlDateAdapter.class)
     private Date birthday;
-    @Load
-    private Ref<Role> role;
 
     public User() {
         super();
@@ -53,7 +37,6 @@ public class User implements Serializable {
         this.lastName = lastName;
         this.birthday = birthdayDate;
         if (role != null) {
-            this.role = Ref.create(role);
         }
     }
 
@@ -111,14 +94,6 @@ public class User implements Serializable {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
-    }
-
-    public Role getRole() {
-        return role.get();
-    }
-
-    public void setRole(Role role) {
-        this.role = Ref.create(role);
     }
 
     @Override

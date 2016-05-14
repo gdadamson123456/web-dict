@@ -1,23 +1,16 @@
 package com.kostenko.webmydictionary.dao.domain.dictionary;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Index;
-
 import java.io.Serializable;
 
-@Entity
+
 public class Unit implements Serializable {
     public static final String FIELD_SOURCE = "source";
     public static final String FIELD_TRANSLATION = "translation";
     public static final String FIELD_USER_TRANSLATION = "userTranslation";
     public static final String FIELD_COUNTER = "counter";
-    @Id
-    @Index
+
     private String source;
-    @Index
     private String translations;
-    @Index
     private String userTranslation;
     private long counter;
 
