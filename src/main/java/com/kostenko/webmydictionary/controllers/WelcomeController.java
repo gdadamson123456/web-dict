@@ -62,10 +62,11 @@ public class WelcomeController implements Serializable {
 
     private String getUserHomeLink(User user, Model model) {
         model.addAttribute("sessionUser", user);
-        if (Constants.ROLE_ADMIN.equals(user.getRole().getName())) {
-            return Constants.View.RedirectionTo.ADMIN;
-        } else {
-            return Constants.View.RedirectionTo.USER;
-        }
+//        if (Constants.ROLE_ADMIN.equals(user.getRole().getName())) {
+//            return Constants.View.RedirectionTo.ADMIN;
+//        } else {
+//            return Constants.View.RedirectionTo.USER;
+//        }
+        return Constants.View.RedirectionTo.USER;
     }
 }

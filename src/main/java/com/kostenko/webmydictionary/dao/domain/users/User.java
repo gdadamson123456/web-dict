@@ -22,6 +22,7 @@ public class User implements Serializable {
     private String lastName;
     @XmlJavaTypeAdapter(SqlDateAdapter.class)
     private Date birthday;
+    private Role role;
 
     public User() {
         super();
@@ -94,6 +95,14 @@ public class User implements Serializable {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
