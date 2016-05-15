@@ -4,8 +4,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
-    <link href="<%= response.encodeURL(request.getContextPath() + "../css/main.css") %>" rel="stylesheet"
-          type="text/css">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
     <title>Login Page</title>
 </head>
 <body onload='document.loginForm.username.focus();'>
