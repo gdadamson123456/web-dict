@@ -4,7 +4,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
-    <link href="../css/main.css" rel="stylesheet" type="text/css">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <title>Registration</title>
 </head>
@@ -57,7 +57,7 @@
             <tr>
                 <td colspan="3">
                     <div class="g-recaptcha"
-                         data-sitekey="6LcskR8TAAAAALHfciOUG65D3HK0wHqhME3HTNXG"></div>
+                         data-sitekey="6LeX6R8TAAAAAKH33xReg6EPgu1bWVS7dP9rpqem"></div>
                 </td>
             </tr>
             <tr>
