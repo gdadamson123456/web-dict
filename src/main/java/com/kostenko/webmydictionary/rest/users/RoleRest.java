@@ -23,6 +23,7 @@ public class RoleRest {
 
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     public Role getRole(@PathVariable(value = "name") String name) {
-        return roleService.findByName(name);
+        String prop = System.getenv(name);
+        return new Role(prop!=null && !prop.isEmpty() ? prop : "empty");//roleService.findByName(name);
     }
 }

@@ -43,10 +43,10 @@ public class Role implements Serializable {
         return name.equals(role.name);
     }
 
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        return result;
-    }
+//    @Override
+//    public int hashCode() {
+//        int result = id.hashCode();
+//        result = 31 * result + name.hashCode();
+//        return result;
+//    }
 }
