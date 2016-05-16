@@ -7,10 +7,6 @@ public final class Constants {
     public static final String ROLE_ADMIN = "admin";
     public static final String ROLE_USER = "user";
 
-    public final static class Objectify {
-        public static final String IS_EQUAL = " =";
-    }
-
     public final class View {
         public static final String ADMIN = "AdminView";
         public static final String EDIT_USER = "EditUserView";

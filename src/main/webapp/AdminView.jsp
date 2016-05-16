@@ -15,9 +15,6 @@
     <table id="usersTable" class="table pure-table pure-table-bordered shadow op" align="center" border="2">
         <thead>
         <th>Login</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Age</th>
         <th>Role</th>
         <th>Actions</th>
         </thead>
@@ -26,9 +23,6 @@
 </script>
 <script type="text/template" id="viewUser">
     <td> <\%=login%></td>
-    <td> <\%=firstName%></td>
-    <td> <\%=lastName%></td>
-    <td> <\%=age%></td>
     <td> <\%=role.name%></td>
     <td>
         <a href="#edit/<\%= id %>">Edit</a> <a href="#delete/<\%= id %>" id="delete">Delete</a>
@@ -63,24 +57,6 @@
                     <td>Email</td>
                     <td><input type="email" value="<\%= email %>" id="email"/></td>
                     <td><p id="emailError"></p></td>
-                </tr>
-
-                <tr>
-                    <td>First name</td>
-                    <td><input type="text" value="<\%= firstName %>" id="firstName"/></td>
-                    <td><p id="firstNameError"></p></td>
-                </tr>
-
-                <tr>
-                    <td>Last name</td>
-                    <td><input type="text" value="<\%= lastName %>" id="lastName"/></td>
-                    <td><p id="lastNameError"></p></td>
-                </tr>
-
-                <tr>
-                    <td>Birthday</td>
-                    <td><input type="text" value="<\%= birthday %>" id="birthday"/></td>
-                    <td><p id="birthdayError"></p></td>
                 </tr>
 
                 <tr>

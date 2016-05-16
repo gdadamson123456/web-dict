@@ -7,7 +7,6 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.sql.Date;
 
 @Service
 public class EditForm {
@@ -27,17 +26,6 @@ public class EditForm {
     @Size(min = 3, message = "minimum email size is 3 symbols")
     @Pattern(regexp = "^(\\w+\\.?)+@(\\w+\\.?)+$", message = "Email must be like this pattern [someAddress]@[someDomain]")
     private String email;
-    @NotNull
-    @Size(min = 2, message = "minimum first name size is 2 symbols")
-    @Pattern(regexp = "^([a-zA-Z]+)$", message = "First name must consist only symbols")
-    private String firstName;
-    @NotNull
-    @Size(min = 2, message = "minimum last name size is 2 symbols")
-    @Pattern(regexp = "^([a-zA-Z]+)$", message = "Last Name must consist only symbols")
-    private String lastName;
-    @NotNull
-    @Pattern(regexp = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$", message = "Incorrect date format. Please, check format for next pattern yyyy-mm-dd")
-    private String birthday;
     private String role;
     private String id;
     @AssertTrue(message = "password verify field should be equal than pass field")
@@ -89,30 +77,6 @@ public class EditForm {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
-
     public String getRole() {
         return role;
     }
@@ -125,11 +89,8 @@ public class EditForm {
         User user = new User();
         user.setLogin(login);
         user.setEmail(email);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setBirthday(Date.valueOf(birthday));
         user.setPassword(password);
-        user.setId(id == null || id.isEmpty() ? null : Long.valueOf(id));
+        user.setId(id == null || id.isEmpty() ? null : id);
         return user;
     }
 
@@ -138,11 +99,7 @@ public class EditForm {
         password = user.getPassword();
         passwordRepeat = user.getPassword();
         email = user.getEmail();
-        firstName = user.getFirstName();
-        lastName = user.getLastName();
-        birthday = user.getBirthday().toString();
-        long userId = user.getId();
-        id = String.valueOf(userId);
+        id = user.getId();
         role = user.getRole().getName();
     }
 

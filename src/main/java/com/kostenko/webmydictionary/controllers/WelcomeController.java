@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 @Controller
 @SessionAttributes({"sessionUser"})
@@ -39,34 +38,30 @@ public class WelcomeController implements Serializable {
     private void createData() {
         if (roleService.findByName(Constants.ROLE_ADMIN) == null) {
             Role role = new Role(Constants.ROLE_ADMIN);
-            role.setId(1L);
+            role.setId(String.valueOf(1));
             roleService.create(role);
         }
         if (roleService.findByName(Constants.ROLE_USER) == null) {
             Role role = new Role(Constants.ROLE_USER);
-            role.setId(2L);
+            role.setId(String.valueOf(2));
             roleService.create(role);
         }
         if (userService.findByEmail("sanyokkua@gmail.com") == null) {
             User user = new User("admin",
                     "admin",
                     "sanyokkua@gmail.com",
-                    "Alexander",
-                    "Kostenko",
-                    Date.valueOf("1993-12-12"),
                     roleService.findByName(Constants.ROLE_ADMIN));
-            user.setId(1L);
+            user.setId(String.valueOf(1));
             userService.create(user);
         }
     }
 
     private String getUserHomeLink(User user, Model model) {
         model.addAttribute("sessionUser", user);
-//        if (Constants.ROLE_ADMIN.equals(user.getRole().getName())) {
-//            return Constants.View.RedirectionTo.ADMIN;
-//        } else {
-//            return Constants.View.RedirectionTo.USER;
-//        }
-        return Constants.View.RedirectionTo.USER;
+        if (Constants.ROLE_ADMIN.equals(user.getRole().getName())) {
+            return Constants.View.RedirectionTo.ADMIN;
+        } else {
+            return Constants.View.RedirectionTo.USER;
+        }
     }
 }

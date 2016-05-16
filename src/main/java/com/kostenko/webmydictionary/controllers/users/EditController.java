@@ -28,9 +28,9 @@ public class EditController extends AbstractController implements Serializable {
     private static final String MODE_EDIT = "edit";
 
     @RequestMapping(value = ADMIN_EDIT, method = RequestMethod.GET)
-    public String showEditUserView(@RequestParam("id") Long id, Model model) {
+    public String showEditUserView(@RequestParam("login") String login, Model model) {
         EditForm form = new EditForm();
-        form.setUserData(userService.findById(id));
+        form.setUserData(userService.findByLogin(login));
         setRolesToModel(model, getCorrectRolesList(utils.getUser()));
         model.addAttribute(Constants.MODEL_EDIT_FORM, form);
         model.addAttribute(Constants.MODE, MODE_EDIT);

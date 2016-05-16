@@ -43,3 +43,4 @@ public class UnitRest {
         return new ResponseEntity<>(translationService.translate(from, to, message), HttpStatus.OK);
     }
 }
+

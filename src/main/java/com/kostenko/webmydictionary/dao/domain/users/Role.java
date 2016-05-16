@@ -1,12 +1,19 @@
 package com.kostenko.webmydictionary.dao.domain.users;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
+@Document(collection = "roles")
 public class Role implements Serializable {
+    private static final long serialVersionUID = 598302704073109831L;
+
     public static final String FIELD_ID = "id";
     public static final String FIELD_NAME = "name";
-    private static final long serialVersionUID = 598302704073109831L;
-    private Long id;
+
+    @Id
+    private String id;
     private String name;
 
     public Role() {
@@ -18,11 +25,11 @@ public class Role implements Serializable {
         this.name = name;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -43,10 +50,10 @@ public class Role implements Serializable {
         return name.equals(role.name);
     }
 
-//    @Override
-//    public int hashCode() {
-//        int result = id.hashCode();
-//        result = 31 * result + name.hashCode();
-//        return result;
-//    }
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        return result;
+    }
 }

@@ -19,7 +19,6 @@ public abstract class AbstractController {
     protected RoleService roleService;
     @Autowired
     protected Utils utils;
-    protected List<String> roles;
 
     protected void setRolesToModel(Model model, List<String> roles) {
         model.addAttribute("roles", roles);

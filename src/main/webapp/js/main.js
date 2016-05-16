@@ -8,9 +8,6 @@ document.app.UserModel = Backbone.Model.extend({
         login: '',
         password: '',
         email: '',
-        firstName: '',
-        lastName: '',
-        birthday: '',
         role: {
             id: 2,
             name: 'user'
@@ -25,22 +22,11 @@ document.app.UserView = Backbone.View.extend({
     tagName: 'tr',
     initialize: function () {
         this.template = _.template($('#viewUser').html());
-        this.model.attributes.age = this.getAge(this.model.get('birthday'));
     },
     render: function () {
         var view = this.template(this.model.toJSON());
         this.$el.html(view);
         return this.$el;
-    },
-    getAge: function (date) {
-        var today = new Date();
-        var birthDate = new Date(date);
-        var age = today.getFullYear() - birthDate.getFullYear();
-        var m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-        return age;
     }
 });
 document.app.UsersView = Backbone.View.extend({
@@ -175,44 +161,6 @@ document.app.EditView = Backbone.View
                     .push({
                         name: 'emailError',
                         message: "Email must be like this pattern [someAddress]@[someDomain]"
-                    });
-            }
-            if (attrs.firstName.length < 2) {
-                console.log("minimum firstName size is 2 symbols");
-                errors.push({
-                    name: 'firstNameError',
-                    message: "minimum firstName size is 2 symbols"
-                });
-            }
-            if (!nameRegExp.test(attrs.firstName)) {
-                console.log("firstName must consist only symbols");
-                errors.push({
-                    name: 'firstNameError',
-                    message: "firstName must consist only symbols"
-                });
-            }
-            if (attrs.lastName.length < 2) {
-                console.log("minimum lastName size is 2 symbols");
-                errors.push({
-                    name: 'lastNameError',
-                    message: "minimum lastName size is 2 symbols"
-                });
-            }
-            if (!nameRegExp.test(attrs.lastName)) {
-                console.log("lastName must consist only symbols");
-                errors.push({
-                    name: 'lastNameError',
-                    message: "lastName must consist only symbols"
-                });
-            }
-            var dateRegExp = /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
-            if (!dateRegExp.test(attrs.birthday)) {
-                console
-                    .log("Incorrect date format. Please, check format for next pattern yyyy-mm-dd");
-                errors
-                    .push({
-                        name: 'birthdayError',
-                        message: "Incorrect date format. Please, check format for next pattern yyyy-mm-dd"
                     });
             }
             if (attrs.password !== this.$el.find('#passwordAgain').val()) {

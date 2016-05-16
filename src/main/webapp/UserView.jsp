@@ -10,7 +10,7 @@
 </head>
 <body>
 <div align="center" class="shadow op blockUser">
-    <H2>Hello, ${sessionUser.firstName}!</H2>
+    <H2>Hello, ${sessionUser.login}!</H2>
     <br>
     <c:url value="/j_spring_security_logout" var="logoutUrl"/>
     <form action="${logoutUrl}" method="post" id="logoutForm">

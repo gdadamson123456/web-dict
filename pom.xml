@@ -36,9 +36,25 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
-        <gcloud.plugin.version>2.0.9.106.v20160420</gcloud.plugin.version>
-        <guava.version>19.0</guava.version>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
+        <guava.version>19.0</guava.version>
+        <spring-core.version>4.2.5.RELEASE</spring-core.version>
+        <spring-security-core.version>3.1.4.RELEASE</spring-security-core.version>
+        <spring-data-mongodb.version>1.9.1.RELEASE</spring-data-mongodb.version>
+        <mongo-java-driver.version>3.2.2</mongo-java-driver.version>
+        <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
+        <jstl.version>1.2</jstl.version>
+        <javax.servlet-api.version>3.0.1</javax.servlet-api.version>
+        <httpclient.version>4.5.2</httpclient.version>
+        <recaptcha4j.version>0.0.7</recaptcha4j.version>
+        <jackson-core.version>2.7.4</jackson-core.version>
+        <commons-lang3.version>3.4</commons-lang3.version>
+        <commons-collections4.version>4.1</commons-collections4.version>
+        <commons-logging.version>1.2</commons-logging.version>
+        <log4j.version>1.2.17</log4j.version>
+        <slf4j-api.version>1.7.12</slf4j-api.version>
+        <junit.version>4.12</junit.version>
+        <mockito-all.version>2.0.2-beta</mockito-all.version>
     </properties>
 
     <dependencies>
@@ -46,12 +62,12 @@
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <version>${jstl.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
+            <version>${javax.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <!-- End of Servlets -->
@@ -60,7 +76,7 @@
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
-            <version>3.2.2</version>
+            <version>${mongo-java-driver.version}</version>
         </dependency>
         <!-- End of MongoDb driver -->
 
@@ -68,13 +84,13 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>2.0.2-beta</version>
+            <version>${mockito-all.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- End of Test Dependencies -->
@@ -83,7 +99,7 @@
         <dependency>
             <groupId>net.tanesha.recaptcha4j</groupId>
             <artifactId>recaptcha4j</artifactId>
-            <version>0.0.7</version>
+            <version>${recaptcha4j.version}</version>
         </dependency>
         <!-- End of Captcha -->
 
@@ -96,22 +112,22 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>4.1</version>
+            <version>${commons-collections4.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>1.2</version>
+            <version>${commons-logging.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.2</version>
+            <version>${httpclient.version}</version>
         </dependency>
         <!-- End of Commons libs -->
 
@@ -119,17 +135,17 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <version>${log4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.12</version>
+            <version>${slf4j-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.12</version>
+            <version>${slf4j-api.version}</version>
         </dependency>
         <!-- End of Logging -->
 
@@ -137,78 +153,78 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-mongodb</artifactId>
-            <version>1.9.1.RELEASE</version>
+            <version>${spring-data-mongodb.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>4.2.1.RELEASE</version>
+            <version>${spring-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>4.2.1.RELEASE</version>
+            <version>${spring-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>4.2.1.RELEASE</version>
+            <version>${spring-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-            <version>4.2.1.RELEASE</version>
+            <version>${spring-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>4.2.1.RELEASE</version>
+            <version>${spring-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>4.2.1.RELEASE</version>
+            <version>${spring-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>4.2.1.RELEASE</version>
+            <version>${spring-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
-            <version>4.2.1.RELEASE</version>
+            <version>${spring-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>4.2.1.RELEASE</version>
+            <version>${spring-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>4.2.1.RELEASE</version>
+            <version>${spring-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-expression</artifactId>
-            <version>4.2.1.RELEASE</version>
+            <version>${spring-core.version}</version>
         </dependency>
         <!-- Spring Security -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>3.1.4.RELEASE</version>
+            <version>${spring-security-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>3.1.4.RELEASE</version>
+            <version>${spring-security-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>3.1.4.RELEASE</version>
+            <version>${spring-security-core.version}</version>
         </dependency>
         <!-- End of Spring -->
 
@@ -216,7 +232,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.0.1.Final</version>
+            <version>${hibernate-validator.version}</version>
         </dependency>
         <!-- End of Form Validator implementation -->
 
@@ -224,12 +240,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.7.4</version>
+            <version>${jackson-core.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.7.4</version>
+            <version>${jackson-core.version}</version>
         </dependency>
         <!-- End of Jackson 2 -->
     </dependencies>

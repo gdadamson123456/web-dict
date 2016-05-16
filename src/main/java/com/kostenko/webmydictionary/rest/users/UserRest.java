@@ -24,10 +24,10 @@ public class UserRest {
         return userService.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public User getUser(@PathVariable(value = "id") Long id) {
-        LOG.debug("in get concrete user. id=" + id);
-        return userService.findById(id);
+    @RequestMapping(value = "/{login}", method = RequestMethod.GET)
+    public User getUser(@PathVariable(value = "login") String login) {
+        LOG.debug("in get concrete user. login=" + login);
+        return userService.findByLogin(login);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
@@ -45,9 +45,9 @@ public class UserRest {
         return new ResponseEntity<>(newUser, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteUser(@PathVariable(value = "id") Long id) {
-        userService.remove(userService.findById(id));
+    @RequestMapping(value = "/{login}", method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable(value = "login") String login) {
+        userService.remove(userService.findByLogin(login));
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -65,6 +65,6 @@ public class UserRest {
         }
         userService.create(newUser);
         LOG.debug("in post. All is good...F");
-        return new ResponseEntity<>(userService.findById(newUser.getId()), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findByEmail(newUser.getEmail()), HttpStatus.OK);
     }
 }

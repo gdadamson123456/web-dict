@@ -12,7 +12,7 @@
     </script>
     <c:if test="${pageContext.request.userPrincipal.name != null}">
         <h5 class="shadow op blockHeader">
-                ${sessionUser.firstName} ${sessionUser.lastName} <a href="javascript:formSubmit()">(Logout)</a>
+                ${sessionUser.login} <a href="javascript:formSubmit()">(Logout)</a>
         </h5>
     </c:if>
 </div>

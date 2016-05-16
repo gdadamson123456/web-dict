@@ -4,16 +4,18 @@ import com.kostenko.webmydictionary.dao.domain.dictionary.Unit;
 import com.kostenko.webmydictionary.services.TranslationService;
 import com.kostenko.webmydictionary.services.UnitService;
 import com.kostenko.webmydictionary.translators.TranslatorAPI;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("translationService")
+import java.util.List;
+
+@Service(value = "translationService")
 public class TranslationServiceImpl implements TranslationService {
     @Autowired
     private UnitService unitService;
     @Autowired
-    private TranslatorAPI<String> translatorAPI;
+    private TranslatorAPI<List<String>> translatorAPI;
 
     @Override
     public Unit translate(String from, String to, String unit) {
@@ -30,9 +32,14 @@ public class TranslationServiceImpl implements TranslationService {
 
     private Unit getTranslation(String from, String to, String unit) {
         Unit result = null;
-        String translations = translatorAPI.translate(from, to, unit);
-        if (StringUtils.isNotEmpty(translations)) {
-            result = new Unit(unit, translations);
+        List<String> translations = translatorAPI.translate(from, to, unit);
+        if (CollectionUtils.isNotEmpty(translations)) {
+            StringBuilder builder = new StringBuilder();
+            for (String translation : translations) {
+                builder.append(translation);
+                builder.append("\n");
+            }
+            result = new Unit(unit, builder.toString());
         }
         return result;
     }

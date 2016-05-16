@@ -1,17 +1,21 @@
 package com.kostenko.webmydictionary.dao.domain.dictionary;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
-
+@Document(collection = "units")
 public class Unit implements Serializable {
+    public static final String FIELD_ID = "id";
     public static final String FIELD_SOURCE = "source";
     public static final String FIELD_TRANSLATION = "translation";
-    public static final String FIELD_USER_TRANSLATION = "userTranslation";
     public static final String FIELD_COUNTER = "counter";
 
+    @Id
+    private String id;
     private String source;
     private String translations;
-    private String userTranslation;
     private long counter;
 
     public Unit() {
@@ -30,11 +34,6 @@ public class Unit implements Serializable {
         this.counter = counter;
     }
 
-    public Unit(final String source, final String translations, final String userTranslation, final long counter) {
-        this(source, translations, counter);
-        this.userTranslation = userTranslation;
-    }
-
     public String getSource() {
         return source;
     }
@@ -49,14 +48,6 @@ public class Unit implements Serializable {
 
     public void setTranslations(String translations) {
         this.translations = translations;
-    }
-
-    public String getUserTranslation() {
-        return userTranslation;
-    }
-
-    public void setUserTranslation(String userTranslation) {
-        this.userTranslation = userTranslation;
     }
 
     public long getCounter() {
