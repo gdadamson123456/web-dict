@@ -22,7 +22,7 @@
     <mongo:db-factory id="myDbFactory" authentication-dbname="{systemEnvironment['OPENSHIFT_APP_NAME']}"
                       dbname="#{systemEnvironment['OPENSHIFT_APP_NAME']}"
                       username="admin"
-                      password="5HffkiYh_zif"
+                      password="Uv5C5gJrZQyS"
                       mongo-ref="mongo"/>
     <mongo:repositories base-package="com.kostenko.webmydictionary.dao" mongo-template-ref="anotherMongoTemplate"/>
 
