@@ -9,7 +9,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/data/mongo
-          http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
+          http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
     <context:property-placeholder/>
     <context:component-scan base-package="com.kostenko.webmydictionary"/>
     <mvc:annotation-driven/>
@@ -19,7 +19,7 @@
 
     <mongo:mongo host="#{systemEnvironment['OPENSHIFT_MONGODB_DB_HOST']}"
                  port="#{systemEnvironment['OPENSHIFT_MONGODB_DB_PORT']}"/>
-    <mongo:db-factory id="myDbFactory"
+    <mongo:db-factory id="myDbFactory" authentication-dbname="{systemEnvironment['OPENSHIFT_APP_NAME']}"
                       dbname="#{systemEnvironment['OPENSHIFT_APP_NAME']}"
                       username="admin"
                       password="5HffkiYh_zif"
