@@ -19,15 +19,16 @@
 
     <mongo:mongo host="#{systemEnvironment['OPENSHIFT_MONGODB_DB_HOST']}"
                  port="#{systemEnvironment['OPENSHIFT_MONGODB_DB_PORT']}"/>
-    <mongo:db-factory id="myDbFactory" authentication-dbname="{systemEnvironment['OPENSHIFT_APP_NAME']}"
-                      dbname="#{systemEnvironment['OPENSHIFT_APP_NAME']}"
+    <mongo:db-factory dbname="#{systemEnvironment['OPENSHIFT_APP_NAME']}"
+                      mongo-ref="mongo"
+                      host="#{systemEnvironment['OPENSHIFT_MONGODB_DB_HOST']}"
+                      port="#{systemEnvironment['OPENSHIFT_MONGODB_DB_PORT']}"
                       username="admin"
-                      password="Uv5C5gJrZQyS"
-                      mongo-ref="mongo"/>
-    <mongo:repositories base-package="com.kostenko.webmydictionary.dao" mongo-template-ref="anotherMongoTemplate"/>
+                      password="Uv5C5gJrZQyS"/>
+    <mongo:repositories base-package="com.kostenko.webmydictionary.dao" mongo-template-ref="mongoTemplate"/>
 
-    <bean id="anotherMongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-        <constructor-arg name="mongoDbFactory" ref="myDbFactory"/>
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
     </bean>
 
     <bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl">
