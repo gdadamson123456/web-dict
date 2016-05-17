@@ -19,16 +19,15 @@
 
     <mongo:mongo host="#{systemEnvironment['OPENSHIFT_MONGODB_DB_HOST']}"
                  port="#{systemEnvironment['OPENSHIFT_MONGODB_DB_PORT']}"/>
-    <mongo:db-factory dbname="#{systemEnvironment['OPENSHIFT_APP_NAME']}"
-                      mongo-ref="mongo"
-                      host="#{systemEnvironment['OPENSHIFT_MONGODB_DB_HOST']}"
-                      port="#{systemEnvironment['OPENSHIFT_MONGODB_DB_PORT']}"
+    <mongo:db-factory id="myDbFactory"
+                      dbname="#{systemEnvironment['OPENSHIFT_APP_NAME']}"
                       username="admin"
-                      password="5HffkiYh_zif"/>
-    <mongo:repositories base-package="com.kostenko.webmydictionary.dao" mongo-template-ref="mongoTemplate"/>
+                      password="5HffkiYh_zif"
+                      mongo-ref="mongo"/>
+    <mongo:repositories base-package="com.kostenko.webmydictionary.dao" mongo-template-ref="anotherMongoTemplate"/>
 
-    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+    <bean id="anotherMongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="myDbFactory"/>
     </bean>
 
     <bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl">
