@@ -25,7 +25,7 @@
                       port="#{systemEnvironment['OPENSHIFT_MONGODB_DB_PORT']}"
                       username="user"
                       password="user"/>
-    <mongo:repositories base-package="com.kostenko.webmydictionary.dao" mongo-template-ref="mongoTemplate"/>
+    <mongo:repositories base-package="com.kostenko.webmydictionary.dao" mongo-template-ref="mongoTemplate" />
 
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>

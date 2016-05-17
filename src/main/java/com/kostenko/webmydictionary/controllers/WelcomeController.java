@@ -47,8 +47,8 @@ public class WelcomeController implements Serializable {
             roleService.create(role);
         }
         if (userService.findByEmail("sanyokkua@gmail.com") == null) {
-            User user = new User("admin",
-                    "admin",
+            User user = new User("adminq",
+                    "adminq",
                     "sanyokkua@gmail.com",
                     roleService.findByName(Constants.ROLE_ADMIN));
             user.setId(String.valueOf(1));

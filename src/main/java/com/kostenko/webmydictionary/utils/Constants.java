@@ -4,7 +4,7 @@ public final class Constants {
     public static final String ERROR_MESSAGE = "errorMessage";
     public static final String MODE = "mode";
     public static final String MODEL_EDIT_FORM = "editForm";
-    public static final String ROLE_ADMIN = "admin";
+    public static final String ROLE_ADMIN = "adminq";
     public static final String ROLE_USER = "user";
 
     public final class View {
