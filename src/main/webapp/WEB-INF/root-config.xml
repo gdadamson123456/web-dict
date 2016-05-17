@@ -19,12 +19,12 @@
 
     <mongo:mongo host="#{systemEnvironment['OPENSHIFT_MONGODB_DB_HOST']}"
                  port="#{systemEnvironment['OPENSHIFT_MONGODB_DB_PORT']}"/>
-    <mongo:db-factory dbname="webdictionary"
+    <mongo:db-factory dbname="#{systemEnvironment['OPENSHIFT_APP_NAME']}"
                       mongo-ref="mongo"
                       host="#{systemEnvironment['OPENSHIFT_MONGODB_DB_HOST']}"
                       port="#{systemEnvironment['OPENSHIFT_MONGODB_DB_PORT']}"
-                      username="admin"
-                      password="Uv5C5gJrZQyS"/>
+                      username="user"
+                      password="user"/>
     <mongo:repositories base-package="com.kostenko.webmydictionary.dao" mongo-template-ref="mongoTemplate"/>
 
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
