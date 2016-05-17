@@ -19,7 +19,7 @@
 
     <mongo:mongo host="#{systemEnvironment['OPENSHIFT_MONGODB_DB_HOST']}"
                  port="#{systemEnvironment['OPENSHIFT_MONGODB_DB_PORT']}"/>
-    <mongo:db-factory dbname="#{systemEnvironment['OPENSHIFT_APP_NAME']}"
+    <mongo:db-factory dbname="webdictionary"
                       mongo-ref="mongo"
                       host="#{systemEnvironment['OPENSHIFT_MONGODB_DB_HOST']}"
                       port="#{systemEnvironment['OPENSHIFT_MONGODB_DB_PORT']}"
