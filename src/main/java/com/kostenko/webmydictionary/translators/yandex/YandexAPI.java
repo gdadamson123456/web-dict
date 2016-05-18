@@ -22,16 +22,25 @@ import java.util.Collections;
 import java.util.List;
 
 @Service(value = "translatorAPI")
-public class YandexAPI implements TranslatorAPI<List<String>> {
+public class YandexAPI implements TranslatorAPI<TranslationResponse> {
     private static final Logger LOG = LoggerFactory.getLogger(YandexAPI.class);
-    private final String API_KEY_ONE = "trnsl.1.1.20150522T195930Z.010ab143cb4576f2.568a0965d1a708e331f7af72fc325e30861ff083";
-    private final String API_KEY_TWO = "trnsl.1.1.20150609T180905Z.f13a08e37aa237d0.1d49c5f38dcf5917e5e41950eb2882b27a3b97c8";
-    private final String API_KEY_THREE = "trnsl.1.1.20160512T204421Z.b829b32f4cea989b.3fb210f3bcb6f16c61e92b993ed9d99a5fb9e561";
+    private static final String API_KEY_ONE = "trnsl.1.1.20150522T195930Z.010ab143cb4576f2.568a0965d1a708e331f7af72fc325e30861ff083";
+    private static final String API_KEY_TWO = "trnsl.1.1.20150609T180905Z.f13a08e37aa237d0.1d49c5f38dcf5917e5e41950eb2882b27a3b97c8";
+    private static final String API_KEY_THREE = "trnsl.1.1.20160512T204421Z.b829b32f4cea989b.3fb210f3bcb6f16c61e92b993ed9d99a5fb9e561";
+    private static final List<String> API_KEYS = new ArrayList<>(3);
+    private static int index = 0;
+
+    static {
+        API_KEYS.add(API_KEY_ONE);
+        API_KEYS.add(API_KEY_TWO);
+        API_KEYS.add(API_KEY_THREE);
+    }
+
     /*https://translate.yandex.net/api/v1.5/tr.json/translate?key=<API-key>&text=<text>&lang=<direction like en-ru>&[format=<plain or html>]**/
     private final String URL_LINK = "https://translate.yandex.net/api/v1.5/tr.json/translate";//?key=%s&text=%s&lang=%s-%s&format=plain";
 
     @Override
-    public List<String> translate(String from, String to, String message) {
+    public TranslationResponse translate(String from, String to, String message) {
         TranslationResponse result = null;
         HttpClient client = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(URL_LINK);
@@ -49,7 +58,28 @@ public class YandexAPI implements TranslatorAPI<List<String>> {
             result = objectMapper.readValue(br.readLine(), TranslationResponse.class);
         } catch (IOException e) {
             LOG.error("Something wrong with request to yandex api or Json mapping", e);
+            result = null;
         }
-        return result != null ? result.getText() : Collections.<String>emptyList();
+        return getResultFromResponse(result);
+    }
+
+    private TranslationResponse getResultFromResponse(TranslationResponse result) {
+        if (result != null) {
+            int resultCode = result.getCode();
+            Statuses status = Statuses.getStatus(resultCode);
+            if (status != Statuses.OK) {
+                result.setErrorCode(String.format("Api returns next error (statusCode: %s, ErrorMessage: %s)",
+                        status.getCode(), status.getMessage()));
+            }
+        }
+        return result;
+    }
+
+    private synchronized static String getApiKey() {
+        index = (index++) % (API_KEYS.size());
+        LOG.debug("Current API key index is: " + index);
+        String key = API_KEYS.get(index);
+        LOG.debug("API Key is: " + key);
+        return key;
     }
 }

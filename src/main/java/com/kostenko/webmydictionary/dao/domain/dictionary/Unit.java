@@ -17,6 +17,7 @@ public class Unit implements Serializable {
     private String source;
     private String translations;
     private long counter;
+    private String errorMessage;
 
     public Unit() {
         this.counter = 0;
@@ -56,6 +57,14 @@ public class Unit implements Serializable {
 
     public void setCounter(long counter) {
         this.counter = counter;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     @Override

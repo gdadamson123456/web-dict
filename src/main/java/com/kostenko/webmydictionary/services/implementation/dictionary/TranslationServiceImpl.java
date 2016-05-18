@@ -4,21 +4,21 @@ import com.kostenko.webmydictionary.dao.domain.dictionary.Unit;
 import com.kostenko.webmydictionary.services.TranslationService;
 import com.kostenko.webmydictionary.services.UnitService;
 import com.kostenko.webmydictionary.translators.TranslatorAPI;
-import org.apache.commons.collections4.CollectionUtils;
+import com.kostenko.webmydictionary.translators.yandex.Statuses;
+import com.kostenko.webmydictionary.translators.yandex.TranslationResponse;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service(value = "translationService")
 public class TranslationServiceImpl implements TranslationService {
     @Autowired
     private UnitService unitService;
     @Autowired
-    private TranslatorAPI<List<String>> translatorAPI;
+    private TranslatorAPI<TranslationResponse> translatorAPI;
 
     @Override
-    public Unit translate(String from, String to, String unit) {
+    public Unit translate(final String from, final String to, final String unit) {
         Unit result;
         Unit dataStoreUnit = unitService.findBySource(unit);
         if (dataStoreUnit != null) {
@@ -30,22 +30,25 @@ public class TranslationServiceImpl implements TranslationService {
         return result;
     }
 
-    private Unit getTranslation(String from, String to, String unit) {
+    private Unit getTranslation(final String from, final String to, final String unit) {
         Unit result = null;
-        List<String> translations = translatorAPI.translate(from, to, unit);
-        if (CollectionUtils.isNotEmpty(translations)) {
+        TranslationResponse translation = translatorAPI.translate(from, to, unit);
+        if (translation != null && Statuses.getStatus(translation.getCode()) == Statuses.OK) {
             StringBuilder builder = new StringBuilder();
-            for (String translation : translations) {
-                builder.append(translation);
-                builder.append("\n");
+            for (String translationPart : translation.getText()) {
+                builder.append(translationPart);
+                builder.append("; ");
             }
             result = new Unit(unit, builder.toString());
+        } else if (translation != null) {
+            result = new Unit(null, null);
+            result.setErrorMessage(translation.getErrorCode());
         }
         return result;
     }
 
-    private void createUnit(Unit result) {
-        if (result != null) {
+    private void createUnit(final Unit result) {
+        if (result != null && StringUtils.isEmpty(result.getErrorMessage())) {
             unitService.save(result);
         }
     }

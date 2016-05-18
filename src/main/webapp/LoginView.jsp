@@ -33,7 +33,8 @@
                 <tr>
                     <td colspan="3" align="right"><input name="submit"
                                                          class="pure-button pure-button-primary" type="submit"
-                                                         value="Sign in"/></td>
+                                                         value="Sign in"/>
+                    </td>
                 </tr>
                 <tr>
                     <td><br></td>

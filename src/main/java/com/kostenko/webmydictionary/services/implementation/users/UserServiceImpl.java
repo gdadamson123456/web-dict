@@ -45,4 +45,9 @@ public class UserServiceImpl implements UserService, Serializable {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    @Override
+    public User findById(String id) {
+        return userRepository.findById(id);
+    }
 }

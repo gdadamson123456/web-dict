@@ -23,4 +23,23 @@ public enum Statuses {
     public int getCode() {
         return code;
     }
+
+    public static Statuses getStatus(int code) {
+        switch (code) {
+            case 200:
+                return OK;
+            case 401:
+                return WRONG_API_KEY;
+            case 404:
+                return BLOCKED_API_KEY;
+            case 413:
+                return DAY_LIMIT;
+            case 422:
+                return WRONG_TEXT_SIZE;
+            case 501:
+                return WRONG_TRANSLATION_DIRECTION;
+            default:
+                throw new IllegalArgumentException("This code is not supports. code: " + code);
+        }
+    }
 }

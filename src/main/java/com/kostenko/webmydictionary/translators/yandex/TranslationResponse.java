@@ -6,13 +6,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-class TranslationResponse {
+public class TranslationResponse {
     @JsonProperty("code")
     private int code;
     @JsonProperty("lang")
     private String lang;
     @JsonProperty("text")
     private List<String> text;
+    @JsonProperty("errorCode")
+    private String errorCode;
 
     public TranslationResponse() {
     }
@@ -39,5 +41,13 @@ class TranslationResponse {
 
     public void setText(List<String> text) {
         this.text = text;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
     }
 }

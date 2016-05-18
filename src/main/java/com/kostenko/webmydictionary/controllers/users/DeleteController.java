@@ -23,9 +23,9 @@ public class DeleteController implements Serializable {
     private UserService userService;
 
     @RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
-    public String deleteUser(@RequestParam("login") String login, Model model) {
+    public String deleteUser(@RequestParam("id") String id, Model model) {
         User current = new Utils().getUser();
-        User user = userService.findByLogin(login);
+        User user = userService.findById(id);
         if (current != null && !current.equals(user)) {
             if (user != null) {
                 userService.remove(user);

@@ -37,21 +37,6 @@
                 <td style="color: red"><form:errors path="email"/></td>
             </tr>
             <tr>
-                <td>First name</td>
-                <td><form:input path="firstName"/></td>
-                <td style="color: red"><form:errors path="firstName"/></td>
-            </tr>
-            <tr>
-                <td>Last name</td>
-                <td><form:input path="lastName"/></td>
-                <td style="color: red"><form:errors path="lastName"/></td>
-            </tr>
-            <tr>
-                <td>Birthday</td>
-                <td><form:input path="birthday"/></td>
-                <td style="color: red"><form:errors path="birthday"/></td>
-            </tr>
-            <tr>
                 <td><br> <form:hidden path="role"/></td>
             </tr>
             <tr>

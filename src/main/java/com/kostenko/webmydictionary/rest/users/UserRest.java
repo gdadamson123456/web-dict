@@ -26,7 +26,7 @@ public class UserRest {
 
     @RequestMapping(value = "/{login}", method = RequestMethod.GET)
     public User getUser(@PathVariable(value = "login") String login) {
-        LOG.debug("in get concrete user. login=" + login);
+        LOG.debug("in get concrete user. id=" + login);
         return userService.findByLogin(login);
     }
 
@@ -45,9 +45,9 @@ public class UserRest {
         return new ResponseEntity<>(newUser, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{login}", method = RequestMethod.DELETE)
-    public void deleteUser(@PathVariable(value = "login") String login) {
-        userService.remove(userService.findByLogin(login));
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable(value = "id") String id) {
+        userService.remove(userService.findById(id));
     }
 
     @RequestMapping(method = RequestMethod.POST)
