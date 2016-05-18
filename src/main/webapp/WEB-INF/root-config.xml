@@ -2,34 +2,17 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
        xmlns:tx="http://www.springframework.org/schema/tx" xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/data/mongo
-          http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:property-placeholder/>
     <context:component-scan base-package="com.kostenko.webmydictionary"/>
     <mvc:annotation-driven/>
     <tx:annotation-driven/>
     <mvc:resources mapping="js/**" location="/js/"/>
     <mvc:resources mapping="css/**" location="/css/"/>
-
-    <mongo:mongo host="#{systemEnvironment['OPENSHIFT_MONGODB_DB_HOST']}"
-                 port="#{systemEnvironment['OPENSHIFT_MONGODB_DB_PORT']}"/>
-    <mongo:db-factory dbname="#{systemEnvironment['OPENSHIFT_APP_NAME']}"
-                      mongo-ref="mongo"
-                      host="#{systemEnvironment['OPENSHIFT_MONGODB_DB_HOST']}"
-                      port="#{systemEnvironment['OPENSHIFT_MONGODB_DB_PORT']}"
-                      username="admin"
-                      password="4aeff54ee662d753ec68da524afac487"/>
-    <mongo:repositories base-package="com.kostenko.webmydictionary.dao" mongo-template-ref="mongoTemplate" />
-
-    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
-    </bean>
 
     <bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl">
         <property name="privateKey" value="6LcskR8TAAAAAOPEUfFbTrUMbEAAmLPPCUfYX5xF"/>
