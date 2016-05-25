@@ -5,9 +5,9 @@ import com.kostenko.webmydictionary.translators.TranslatorAPI;
 import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
@@ -18,8 +18,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Service(value = "translatorAPI")
 public class YandexAPI implements TranslatorAPI<TranslationResponse> {
@@ -27,7 +27,10 @@ public class YandexAPI implements TranslatorAPI<TranslationResponse> {
     private static final String API_KEY_ONE = "trnsl.1.1.20150522T195930Z.010ab143cb4576f2.568a0965d1a708e331f7af72fc325e30861ff083";
     private static final String API_KEY_TWO = "trnsl.1.1.20150609T180905Z.f13a08e37aa237d0.1d49c5f38dcf5917e5e41950eb2882b27a3b97c8";
     private static final String API_KEY_THREE = "trnsl.1.1.20160512T204421Z.b829b32f4cea989b.3fb210f3bcb6f16c61e92b993ed9d99a5fb9e561";
+    private static final String API_KEY_DICTIONARY = "dict.1.1.20160523T184419Z.57f3846f4ebe2a46.14118f8be02cc0ebb7c49576bb500c225cd9d52e";
     private static final List<String> API_KEYS = new ArrayList<>(3);
+    private static final String URL_DICTIONARY = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup";
+    private static final String URL_TRANSLATOR = "https://translate.yandex.net/api/v1.5/tr.json/translate";
     private static int index = 0;
 
     static {
@@ -36,31 +39,67 @@ public class YandexAPI implements TranslatorAPI<TranslationResponse> {
         API_KEYS.add(API_KEY_THREE);
     }
 
-    /*https://translate.yandex.net/api/v1.5/tr.json/translate?key=<API-key>&text=<text>&lang=<direction like en-ru>&[format=<plain or html>]**/
-    private final String URL_LINK = "https://translate.yandex.net/api/v1.5/tr.json/translate";//?key=%s&text=%s&lang=%s-%s&format=plain";
-
     @Override
     public TranslationResponse translate(String from, String to, String message) {
-        TranslationResponse result = null;
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost(URL_LINK);
-        httpPost.setHeader("User-Agent", "Mozilla/5.0");
-        List<NameValuePair> params = new ArrayList<>();
-        params.add(new BasicNameValuePair("key", API_KEY_ONE));
-        params.add(new BasicNameValuePair("lang", String.format("%1$s-%2$s", from, to)));
-        params.add(new BasicNameValuePair("text", message));
-        httpPost.setEntity(new UrlEncodedFormEntity(params, Consts.UTF_8));
-        HttpResponse httpResponse;
+        TranslationResponse translationResponse = null;
         try {
-            httpResponse = client.execute(httpPost);
-            BufferedReader br = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+            String translatorResult = translateThroughTranslator(from, to, message);
+            String dictionaryResult = translateThroughDictionary(from, to, message);
             ObjectMapper objectMapper = new ObjectMapper();
-            result = objectMapper.readValue(br.readLine(), TranslationResponse.class);
+            translationResponse = objectMapper.readValue(translatorResult, TranslationResponse.class);
+            String result = objectMapper.readValue(dictionaryResult, Map.class).toString();
+            translationResponse.getText().add("Translated by «Yandex.Translator» service");
+            translationResponse.getText().add(result);
+            translationResponse.getText().add("Implemented by «Yandex.Dictionary» service");
         } catch (IOException e) {
             LOG.error("Something wrong with request to yandex api or Json mapping", e);
-            result = null;
         }
-        return getResultFromResponse(result);
+        return getResultFromResponse(translationResponse);
+    }
+
+    private String translateThroughTranslator(String from, String to, String text) {
+        List<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("key", getApiKey()));
+        params.add(new BasicNameValuePair("lang", String.format("%1$s-%2$s", from, to)));
+        params.add(new BasicNameValuePair("text", text));
+        HttpPost httpPost = prepareHttpPost(params, URL_TRANSLATOR);
+        StringBuilder stringBuilder = getResponseString(httpPost);
+        return stringBuilder.toString();
+    }
+
+    private HttpPost prepareHttpPost(List<NameValuePair> params, String url) {
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setHeader("User-Agent", "Mozilla/5.0");
+        httpPost.setEntity(new UrlEncodedFormEntity(params, Consts.UTF_8));
+        return httpPost;
+    }
+
+    private StringBuilder getResponseString(HttpPost httpPost) {
+        CloseableHttpClient client = HttpClientBuilder.create().build();
+        StringBuilder stringBuilder = new StringBuilder();
+        try {
+            HttpResponse httpResponse = client.execute(httpPost);
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"))) {
+                String temp;
+                while ((temp = br.readLine()) != null) {
+                    stringBuilder.append(temp);
+                }
+            }
+        } catch (IOException e) {
+            LOG.error("Something wrong with request to yandex api or Json mapping", e);
+        }
+        return stringBuilder;
+    }
+
+    private String translateThroughDictionary(String from, String to, String text) {
+        List<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("key", API_KEY_DICTIONARY));
+        params.add(new BasicNameValuePair("lang", String.format("%1$s-%2$s", from, to)));
+        params.add(new BasicNameValuePair("text", text));
+        params.add(new BasicNameValuePair("ui", to));
+        HttpPost httpPost = prepareHttpPost(params, URL_DICTIONARY);
+        StringBuilder stringBuilder = getResponseString(httpPost);
+        return stringBuilder.toString();
     }
 
     private TranslationResponse getResultFromResponse(TranslationResponse result) {

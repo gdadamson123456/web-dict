@@ -22,4 +22,23 @@ public class UserDetailImpl extends org.springframework.security.core.userdetail
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        UserDetailImpl that = (UserDetailImpl) o;
+
+        return user != null ? user.equals(that.user) : that.user == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        return result;
+    }
 }

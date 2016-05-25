@@ -31,7 +31,7 @@ public class UserRest {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long id, @RequestBody User newUser) {
+    public ResponseEntity<User> updateUser(@PathVariable(value = "id") String id, @RequestBody User newUser) {
         LOG.debug("in put. id=" + id);
         User another = userService.findByEmail(newUser.getEmail());
         if (another != null && !another.getId().equals(id)
