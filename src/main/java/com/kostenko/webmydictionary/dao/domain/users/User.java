@@ -7,11 +7,6 @@ import java.io.Serializable;
 @Document(collection = "users")
 public class User implements Serializable {
     private static final long serialVersionUID = 788105459979932616L;
-    public static final String FIELD_ID = "id";
-    public static final String FIELD_LOGIN = "login";
-    public static final String FIELD_PASSWORD = "password";
-    public static final String FIELD_EMAIL = "email";
-    public static final String FIELD_ROLE = "role";
     private String id;
     private String login;
     private String password;

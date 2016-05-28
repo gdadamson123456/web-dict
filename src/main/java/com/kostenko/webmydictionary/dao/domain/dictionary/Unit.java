@@ -7,32 +7,32 @@ import java.io.Serializable;
 
 @Document(collection = "units")
 public class Unit implements Serializable {
-    public static final String FIELD_ID = "id";
-    public static final String FIELD_SOURCE = "source";
-    public static final String FIELD_TRANSLATION = "translation";
-    public static final String FIELD_COUNTER = "counter";
-
     @Id
     private String id;
     private String source;
-    private String translations;
-    private long counter;
+    private String translation;
+    private String translationAdditional;
     private String errorMessage;
 
     public Unit() {
-        this.counter = 0;
     }
 
-    public Unit(final String source, final String translations) {
-        this();
+    public Unit(final String source, final String translation) {
         this.source = source;
-        this.translations = translations;
+        this.translation = translation;
     }
 
-    public Unit(final String source, final String translations, final long counter) {
-        this.source = source;
-        this.translations = translations;
-        this.counter = counter;
+    public Unit(final String source, final String translation, final String translationAdditional) {
+        this(source, translation);
+        this.translationAdditional = translationAdditional;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getSource() {
@@ -43,20 +43,20 @@ public class Unit implements Serializable {
         this.source = source;
     }
 
-    public String getTranslations() {
-        return translations;
+    public String getTranslation() {
+        return translation;
     }
 
-    public void setTranslations(String translations) {
-        this.translations = translations;
+    public void setTranslation(String translation) {
+        this.translation = translation;
     }
 
-    public long getCounter() {
-        return counter;
+    public String getTranslationAdditional() {
+        return translationAdditional;
     }
 
-    public void setCounter(long counter) {
-        this.counter = counter;
+    public void setTranslationAdditional(String translationAdditional) {
+        this.translationAdditional = translationAdditional;
     }
 
     public String getErrorMessage() {
@@ -79,14 +79,14 @@ public class Unit implements Serializable {
         if (!source.equals(unit.source)) {
             return false;
         }
-        return translations != null ? translations.equals(unit.translations) : unit.translations == null;
+        return translation != null ? translation.equals(unit.translation) : unit.translation == null;
 
     }
 
     @Override
     public int hashCode() {
         int result = source.hashCode();
-        result = 31 * result + (translations != null ? translations.hashCode() : 0);
+        result = 31 * result + (translation != null ? translation.hashCode() : 0);
         return result;
     }
 }

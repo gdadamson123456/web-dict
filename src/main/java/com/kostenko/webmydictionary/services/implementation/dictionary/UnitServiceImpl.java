@@ -30,7 +30,7 @@ public class UnitServiceImpl implements UnitService {
 
     @Override
     public Unit findByTranslation(String translation) {
-        return unitRepository.findByTranslations(translation);
+        return unitRepository.findByTranslation(translation);
     }
 
     @Override

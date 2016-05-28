@@ -2,6 +2,9 @@ package com.kostenko.webmydictionary.translators.yandex;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kostenko.webmydictionary.translators.TranslatorAPI;
+import com.kostenko.webmydictionary.translators.yandex.domain.TranslationResponse;
+import com.kostenko.webmydictionary.translators.yandex.domain.YandexResponse;
+import com.kostenko.webmydictionary.translators.yandex.domain.dictionary.DictionaryResponse;
 import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -19,10 +22,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service(value = "translatorAPI")
-public class YandexAPI implements TranslatorAPI<TranslationResponse> {
+public class YandexAPI implements TranslatorAPI<YandexResponse> {
     private static final Logger LOG = LoggerFactory.getLogger(YandexAPI.class);
     private static final String API_KEY_ONE = "trnsl.1.1.20150522T195930Z.010ab143cb4576f2.568a0965d1a708e331f7af72fc325e30861ff083";
     private static final String API_KEY_TWO = "trnsl.1.1.20150609T180905Z.f13a08e37aa237d0.1d49c5f38dcf5917e5e41950eb2882b27a3b97c8";
@@ -40,21 +42,33 @@ public class YandexAPI implements TranslatorAPI<TranslationResponse> {
     }
 
     @Override
-    public TranslationResponse translate(String from, String to, String message) {
+    public YandexResponse translate(String from, String to, String message) {
         TranslationResponse translationResponse = null;
+        DictionaryResponse dictionaryResponse = null;
         try {
             String translatorResult = translateThroughTranslator(from, to, message);
             String dictionaryResult = translateThroughDictionary(from, to, message);
             ObjectMapper objectMapper = new ObjectMapper();
             translationResponse = objectMapper.readValue(translatorResult, TranslationResponse.class);
-            String result = objectMapper.readValue(dictionaryResult, Map.class).toString();
-            translationResponse.getText().add("Translated by «Yandex.Translator» service");
-            translationResponse.getText().add(result);
-            translationResponse.getText().add("Implemented by «Yandex.Dictionary» service");
+            dictionaryResponse = objectMapper.readValue(dictionaryResult, DictionaryResponse.class);
         } catch (IOException e) {
             LOG.error("Something wrong with request to yandex api or Json mapping", e);
         }
-        return getResultFromResponse(translationResponse);
+        YandexResponse response = getYandexResponse(translationResponse, dictionaryResponse);
+        return getResultFromResponse(response);
+    }
+
+    private YandexResponse getYandexResponse(TranslationResponse translationResponse, DictionaryResponse dictionaryResponse) {
+        YandexResponse response = null;
+        if (translationResponse != null && dictionaryResponse != null) {
+            response = new YandexResponse(
+                    translationResponse.getCode(),
+                    translationResponse.getLang(),
+                    translationResponse.getText().toString() + " Translated by «Yandex.Translator» service ",
+                    dictionaryResponse.toString() + " Implemented by «Yandex.Dictionary» service ",
+                    translationResponse.getErrorCode());
+        }
+        return response;
     }
 
     private String translateThroughTranslator(String from, String to, String text) {
@@ -102,7 +116,7 @@ public class YandexAPI implements TranslatorAPI<TranslationResponse> {
         return stringBuilder.toString();
     }
 
-    private TranslationResponse getResultFromResponse(TranslationResponse result) {
+    private YandexResponse getResultFromResponse(YandexResponse result) {
         if (result != null) {
             int resultCode = result.getCode();
             Statuses status = Statuses.getStatus(resultCode);

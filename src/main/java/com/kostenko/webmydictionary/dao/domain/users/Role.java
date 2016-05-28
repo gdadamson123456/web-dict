@@ -9,9 +9,6 @@ import java.io.Serializable;
 public class Role implements Serializable {
     private static final long serialVersionUID = 598302704073109831L;
 
-    public static final String FIELD_ID = "id";
-    public static final String FIELD_NAME = "name";
-
     @Id
     private String id;
     private String name;

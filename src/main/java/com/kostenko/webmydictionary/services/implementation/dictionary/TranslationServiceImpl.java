@@ -5,7 +5,7 @@ import com.kostenko.webmydictionary.services.TranslationService;
 import com.kostenko.webmydictionary.services.UnitService;
 import com.kostenko.webmydictionary.translators.TranslatorAPI;
 import com.kostenko.webmydictionary.translators.yandex.Statuses;
-import com.kostenko.webmydictionary.translators.yandex.TranslationResponse;
+import com.kostenko.webmydictionary.translators.yandex.domain.YandexResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class TranslationServiceImpl implements TranslationService {
     @Autowired
     private UnitService unitService;
     @Autowired
-    private TranslatorAPI<TranslationResponse> translatorAPI;
+    private TranslatorAPI<YandexResponse> translatorAPI;
 
     @Override
     public Unit translate(final String from, final String to, final String unit) {
@@ -30,16 +30,11 @@ public class TranslationServiceImpl implements TranslationService {
         return result;
     }
 
-    private Unit getTranslation(final String from, final String to, final String unit) {
+    private Unit getTranslation(final String from, final String to, final String source) {
         Unit result = null;
-        TranslationResponse translation = translatorAPI.translate(from, to, unit);
+        YandexResponse translation = translatorAPI.translate(from, to, source);
         if (translation != null && Statuses.getStatus(translation.getCode()) == Statuses.OK) {
-            StringBuilder builder = new StringBuilder();
-            for (String translationPart : translation.getText()) {
-                builder.append(translationPart);
-                builder.append("; ");
-            }
-            result = new Unit(unit, builder.toString());
+            result = new Unit(source, translation.getTranslation(), translation.getAdditionalTranslations());
         } else if (translation != null) {
             result = new Unit(null, null);
             result.setErrorMessage(translation.getErrorCode());

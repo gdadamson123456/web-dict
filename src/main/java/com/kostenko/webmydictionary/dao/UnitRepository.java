@@ -6,5 +6,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface UnitRepository extends MongoRepository<Unit, String> {
     Unit findBySource(final String source);
 
-    Unit findByTranslations(final String translations);
+    Unit findByTranslation(final String translation);
 }
