@@ -51,13 +51,5 @@ public class Definition {
         this.translations = translations;
     }
 
-    @Override
-    public String toString() {
-        String toString = "{text: %s, pos: %s, gen: %s, translation: %s}";
-        return String.format(toString,
-                isEmpty(originalText) ? "" : originalText,
-                isEmpty(originalPosition) ? "" : originalPosition,
-                isEmpty(originalGender) ? "" : originalGender,
-                CollectionUtils.isEmpty(translations) ? "" : translations);
-    }
+
 }

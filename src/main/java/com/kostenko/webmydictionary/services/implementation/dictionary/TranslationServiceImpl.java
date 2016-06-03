@@ -34,9 +34,9 @@ public class TranslationServiceImpl implements TranslationService {
         Unit result = null;
         YandexResponse translation = translatorAPI.translate(from, to, source);
         if (translation != null && Statuses.getStatus(translation.getCode()) == Statuses.OK) {
-            result = new Unit(source, translation.getTranslation(), translation.getAdditionalTranslations());
+            result = new Unit(source, translation.getTranslation(), translation.getAdditionalTranslations(), translation.getTechnologies());
         } else if (translation != null) {
-            result = new Unit(null, null);
+            result = new Unit();
             result.setErrorMessage(translation.getErrorCode());
         }
         return result;

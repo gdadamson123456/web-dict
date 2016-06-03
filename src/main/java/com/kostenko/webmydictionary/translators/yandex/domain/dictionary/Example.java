@@ -29,11 +29,4 @@ public class Example {
     public void setExTranslations(List<ExTranslation> exTranslations) {
         this.exTranslations = exTranslations;
     }
-
-    @Override
-    public String toString() {
-        String currentText = StringUtils.isEmpty(text) ? "" : text;
-        String currentTranslations = CollectionUtils.isEmpty(exTranslations) ? "" : exTranslations.toString();
-        return "{" + "text: " + currentText + ", translations: " + currentTranslations + " }";
-    }
 }

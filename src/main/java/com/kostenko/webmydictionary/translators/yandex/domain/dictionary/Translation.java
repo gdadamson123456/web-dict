@@ -70,16 +70,4 @@ public class Translation {
     public void setTranslatedExamples(List<Example> translatedExamples) {
         this.translatedExamples = translatedExamples;
     }
-
-    @Override
-    public String toString() {
-        String toString = "{text: %s, pos: %s, gen: %s, syn: %s, mean: %s, ex: %s}";
-        return String.format(toString,
-                isEmpty(translatedText) ? "" : translatedText,
-                isEmpty(translatedPosition) ? "" : translatedPosition,
-                isEmpty(translatedGender) ? "" : translatedGender,
-                CollectionUtils.isEmpty(translatedSynonims) ? "" : translatedSynonims,
-                CollectionUtils.isEmpty(translatedMeans) ? "" : translatedMeans,
-                CollectionUtils.isEmpty(translatedExamples) ? "" : translatedExamples);
-    }
 }

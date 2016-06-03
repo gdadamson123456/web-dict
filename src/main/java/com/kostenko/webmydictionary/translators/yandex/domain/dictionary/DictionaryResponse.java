@@ -29,9 +29,4 @@ public class DictionaryResponse {
         this.definitions = definitions;
     }
 
-    @Override
-    public String toString() {
-        String definition = "{ def: " + definitions + '}';
-        return CollectionUtils.isEmpty(definitions) ? "" : definition;
-    }
 }

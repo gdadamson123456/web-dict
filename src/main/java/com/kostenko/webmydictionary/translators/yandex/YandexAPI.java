@@ -1,10 +1,12 @@
 package com.kostenko.webmydictionary.translators.yandex;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.kostenko.webmydictionary.translators.TranslatorAPI;
 import com.kostenko.webmydictionary.translators.yandex.domain.TranslationResponse;
 import com.kostenko.webmydictionary.translators.yandex.domain.YandexResponse;
-import com.kostenko.webmydictionary.translators.yandex.domain.dictionary.DictionaryResponse;
 import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -21,7 +23,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service(value = "translatorAPI")
 public class YandexAPI implements TranslatorAPI<YandexResponse> {
@@ -33,6 +37,15 @@ public class YandexAPI implements TranslatorAPI<YandexResponse> {
     private static final List<String> API_KEYS = new ArrayList<>(3);
     private static final String URL_DICTIONARY = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup";
     private static final String URL_TRANSLATOR = "https://translate.yandex.net/api/v1.5/tr.json/translate";
+    private static final String translatorTechnology = "Translated by «Yandex.Translator» service ";
+    private static final String dictionaryTechnology = "Implemented by «Yandex.Dictionary» service ";
+    private static final List<String> technologies = new ArrayList<>();
+
+    static {
+        technologies.add(translatorTechnology);
+        technologies.add(dictionaryTechnology);
+    }
+
     private static int index = 0;
 
     static {
@@ -44,28 +57,38 @@ public class YandexAPI implements TranslatorAPI<YandexResponse> {
     @Override
     public YandexResponse translate(String from, String to, String message) {
         TranslationResponse translationResponse = null;
-        DictionaryResponse dictionaryResponse = null;
+        Map<String, Object> translationDictionaryResult;
         try {
             String translatorResult = translateThroughTranslator(from, to, message);
             String dictionaryResult = translateThroughDictionary(from, to, message);
             ObjectMapper objectMapper = new ObjectMapper();
             translationResponse = objectMapper.readValue(translatorResult, TranslationResponse.class);
-            dictionaryResponse = objectMapper.readValue(dictionaryResult, DictionaryResponse.class);
+            JsonNode jsonNode = objectMapper.readTree(dictionaryResult);
+            if (jsonNode instanceof ObjectNode) {
+                ObjectNode objectNode = (ObjectNode) jsonNode;
+                objectNode.remove("head");
+            }
+            String str = jsonNode.toString();
+            TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String, Object>>() {
+            };
+            translationDictionaryResult = objectMapper.readValue(str, typeRef);
+            LOG.debug(translationDictionaryResult.toString());
         } catch (IOException e) {
             LOG.error("Something wrong with request to yandex api or Json mapping", e);
+            translationDictionaryResult = new HashMap<>();
         }
-        YandexResponse response = getYandexResponse(translationResponse, dictionaryResponse);
+        YandexResponse response = getYandexResponse(translationResponse, translationDictionaryResult);
         return getResultFromResponse(response);
     }
 
-    private YandexResponse getYandexResponse(TranslationResponse translationResponse, DictionaryResponse dictionaryResponse) {
+    private YandexResponse getYandexResponse(TranslationResponse translationResponse, Map<String, Object> dictionaryResponse) {
         YandexResponse response = null;
         if (translationResponse != null && dictionaryResponse != null) {
-            response = new YandexResponse(
-                    translationResponse.getCode(),
+            response = new YandexResponse(translationResponse.getCode(),
                     translationResponse.getLang(),
-                    translationResponse.getText().toString() + " Translated by «Yandex.Translator» service ",
-                    dictionaryResponse.toString() + " Implemented by «Yandex.Dictionary» service ",
+                    translationResponse.getText().toString(),
+                    dictionaryResponse,
+                    technologies,
                     translationResponse.getErrorCode());
         }
         return response;

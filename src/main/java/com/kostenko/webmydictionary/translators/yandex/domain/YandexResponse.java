@@ -1,20 +1,25 @@
 package com.kostenko.webmydictionary.translators.yandex.domain;
 
+import java.util.List;
+import java.util.Map;
+
 public class YandexResponse {
     private int code;
     private String lang;
     private String translation;
-    private String additionalTranslations;
+    private Map<String, Object> additionalTranslations;
+    private List<String> technologies;
     private String errorCode;
 
     public YandexResponse() {
     }
 
-    public YandexResponse(int code, String lang, String translation, String additionalTranslations, String errorCode) {
+    public YandexResponse(int code, String lang, String translation, Map<String, Object> additionalTranslations, List<String> technologies, String errorCode) {
         this.code = code;
         this.lang = lang;
         this.translation = translation;
         this.additionalTranslations = additionalTranslations;
+        this.technologies = technologies;
         this.errorCode = errorCode;
     }
 
@@ -42,12 +47,20 @@ public class YandexResponse {
         this.translation = translation;
     }
 
-    public String getAdditionalTranslations() {
+    public Map<String, Object> getAdditionalTranslations() {
         return additionalTranslations;
     }
 
-    public void setAdditionalTranslations(String additionalTranslations) {
+    public void setAdditionalTranslations(Map<String, Object> additionalTranslations) {
         this.additionalTranslations = additionalTranslations;
+    }
+
+    public List<String> getTechnologies() {
+        return technologies;
+    }
+
+    public void setTechnologies(List<String> technologies) {
+        this.technologies = technologies;
     }
 
     public String getErrorCode() {

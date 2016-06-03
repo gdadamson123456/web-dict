@@ -16,10 +16,4 @@ public class ExTranslation {
     public void setText(String text) {
         this.text = text;
     }
-
-    @Override
-    public String toString() {
-        String toString = "{" + "text: " + text + " }";
-        return StringUtils.isEmpty(text) ? "" : toString;
-    }
 }

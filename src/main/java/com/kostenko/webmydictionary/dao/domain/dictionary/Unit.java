@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 @Document(collection = "units")
 public class Unit implements Serializable {
@@ -11,20 +13,18 @@ public class Unit implements Serializable {
     private String id;
     private String source;
     private String translation;
-    private String translationAdditional;
+    private Map<String, Object> translationAdditional;
+    private List<String> technologies;
     private String errorMessage;
 
     public Unit() {
     }
 
-    public Unit(final String source, final String translation) {
+    public Unit(final String source, final String translation, final Map<String, Object> translationAdditional, final List<String> technologies) {
         this.source = source;
         this.translation = translation;
-    }
-
-    public Unit(final String source, final String translation, final String translationAdditional) {
-        this(source, translation);
         this.translationAdditional = translationAdditional;
+        this.technologies = technologies;
     }
 
     public String getId() {
@@ -51,12 +51,20 @@ public class Unit implements Serializable {
         this.translation = translation;
     }
 
-    public String getTranslationAdditional() {
+    public Map<String, Object> getTranslationAdditional() {
         return translationAdditional;
     }
 
-    public void setTranslationAdditional(String translationAdditional) {
+    public void setTranslationAdditional(Map<String, Object> translationAdditional) {
         this.translationAdditional = translationAdditional;
+    }
+
+    public List<String> getTechnologies() {
+        return technologies;
+    }
+
+    public void setTechnologies(List<String> technologies) {
+        this.technologies = technologies;
     }
 
     public String getErrorMessage() {
