@@ -34,8 +34,8 @@ public class MongoDbConfigurationBean {
         logger.debug("mongoPort: " + port);
         final String dbName = System.getenv(MONGODB_DB_NAME);
         logger.debug("mongoDbName: " + dbName);
-        final String username = "admin";
-        final String password = "Uv5C5gJrZQyS";
+        final String username = "admin"; //TODO: move all credentials to the properties
+        final String password = "Uv5C5gJrZQyS";//TODO: move all credentials to the properties
         final String serverFormattedString = String.format("%s:%s", host, port);
         final ServerAddress serverAddress = new ServerAddress(serverFormattedString);
         final MongoCredential mongoCredential = MongoCredential.createCredential(username, dbName, password.toCharArray());
