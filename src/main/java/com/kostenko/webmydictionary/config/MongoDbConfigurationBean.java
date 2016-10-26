@@ -1,5 +1,6 @@
 package com.kostenko.webmydictionary.config;
 
+import com.kostenko.webmydictionary.config.AppConfig.Property;
 import com.kostenko.webmydictionary.dao.RoleRepository;
 import com.kostenko.webmydictionary.dao.UnitRepository;
 import com.kostenko.webmydictionary.dao.UserRepository;
@@ -21,21 +22,16 @@ import java.util.List;
 @Configuration
 @EnableMongoRepositories(basePackageClasses = {RoleRepository.class, UserRepository.class, UnitRepository.class})
 public class MongoDbConfigurationBean {
-    private static final Logger logger = LoggerFactory.getLogger(MongoDbConfigurationBean.class);
-    private static final String MONGODB_HOST = "OPENSHIFT_MONGODB_DB_HOST";
-    private static final String MONGODB_PORT = "OPENSHIFT_MONGODB_DB_PORT";
-    private static final String MONGODB_DB_NAME = "OPENSHIFT_APP_NAME";
+    private static final Logger LOGGER = LoggerFactory.getLogger(MongoDbConfigurationBean.class);
 
     @Bean
     public MongoTemplate mongoTemplate() throws Exception {
-        final String host = System.getenv(MONGODB_HOST);
-        logger.debug("mongoHost: " + host);
-        final String port = System.getenv(MONGODB_PORT);
-        logger.debug("mongoPort: " + port);
-        final String dbName = System.getenv(MONGODB_DB_NAME);
-        logger.debug("mongoDbName: " + dbName);
-        final String username = "admin"; //TODO: move all credentials to the properties
-        final String password = "Uv5C5gJrZQyS";//TODO: move all credentials to the properties
+        final String host = AppConfig.getProperty(Property.DB_HOST);
+        final String port = AppConfig.getProperty(Property.DB_PORT);
+        final String dbName = AppConfig.getProperty(Property.DB_NAME);
+        final String username = AppConfig.getProperty(Property.DB_USER);
+        final String password = AppConfig.getProperty(Property.DB_PASSWORD);
+
         final String serverFormattedString = String.format("%s:%s", host, port);
         final ServerAddress serverAddress = new ServerAddress(serverFormattedString);
         final MongoCredential mongoCredential = MongoCredential.createCredential(username, dbName, password.toCharArray());

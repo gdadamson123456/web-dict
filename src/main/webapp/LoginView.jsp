@@ -17,7 +17,7 @@
             <div class="msg">${msg}</div>
         </c:if>
         <br> <br>
-        <form name='loginForm' action="j_spring_security_check" method='POST' class="pure-form">
+        <form name='loginForm' action="/login" method='POST' class="pure-form">
             <table>
                 <tr>
                     <td>User:</td>
