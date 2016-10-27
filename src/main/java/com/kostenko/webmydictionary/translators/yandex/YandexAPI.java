@@ -30,15 +30,15 @@ import java.util.Map;
 @Service(value = "translatorAPI")
 public class YandexAPI implements TranslatorAPI<YandexResponse> {
     private static final Logger LOG = LoggerFactory.getLogger(YandexAPI.class);
-    private static final String API_KEY_ONE = "trnsl.1.1.20150522T195930Z.010ab143cb4576f2.568a0965d1a708e331f7af72fc325e30861ff083";
-    private static final String API_KEY_TWO = "trnsl.1.1.20150609T180905Z.f13a08e37aa237d0.1d49c5f38dcf5917e5e41950eb2882b27a3b97c8";
-    private static final String API_KEY_THREE = "trnsl.1.1.20160512T204421Z.b829b32f4cea989b.3fb210f3bcb6f16c61e92b993ed9d99a5fb9e561";
-    private static final String API_KEY_DICTIONARY = "dict.1.1.20160523T184419Z.57f3846f4ebe2a46.14118f8be02cc0ebb7c49576bb500c225cd9d52e";
+    private static final String API_KEY_ONE = "trnsl.1.1.20150522T195930Z.010ab143cb4576f2.568a0965d1a708e331f7af72fc325e30861ff083"; //TODO: move to the property file
+    private static final String API_KEY_TWO = "trnsl.1.1.20150609T180905Z.f13a08e37aa237d0.1d49c5f38dcf5917e5e41950eb2882b27a3b97c8"; //TODO: move to the property file
+    private static final String API_KEY_THREE = "trnsl.1.1.20160512T204421Z.b829b32f4cea989b.3fb210f3bcb6f16c61e92b993ed9d99a5fb9e561"; //TODO: move to the property file
+    private static final String API_KEY_DICTIONARY = "dict.1.1.20160523T184419Z.57f3846f4ebe2a46.14118f8be02cc0ebb7c49576bb500c225cd9d52e"; //TODO: move to the property file
     private static final List<String> API_KEYS = new ArrayList<>(3);
-    private static final String URL_DICTIONARY = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup";
-    private static final String URL_TRANSLATOR = "https://translate.yandex.net/api/v1.5/tr.json/translate";
-    private static final String translatorTechnology = "Translated by «Yandex.Translator» service ";
-    private static final String dictionaryTechnology = "Implemented by «Yandex.Dictionary» service ";
+    private static final String URL_DICTIONARY = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup"; //TODO: move to the property file
+    private static final String URL_TRANSLATOR = "https://translate.yandex.net/api/v1.5/tr.json/translate"; //TODO: move to the property file
+    private static final String translatorTechnology = "Translated by «Yandex.Translator» service "; //TODO: move to the property file for internationalization
+    private static final String dictionaryTechnology = "Implemented by «Yandex.Dictionary» service "; //TODO: move to the property file for internationalization
     private static final List<String> technologies = new ArrayList<>();
 
     static {
@@ -145,7 +145,7 @@ public class YandexAPI implements TranslatorAPI<YandexResponse> {
             Statuses status = Statuses.getStatus(resultCode);
             if (status != Statuses.OK) {
                 result.setErrorCode(String.format("Api returns next error (statusCode: %s, ErrorMessage: %s)",
-                        status.getCode(), status.getMessage()));
+                        status.code, status.message));
             }
         }
         return result;

@@ -30,7 +30,7 @@ public class RegistrationController extends AbstractController implements Serial
     private static final long serialVersionUID = -1902249837028294777L;
     private static final Logger LOG = LoggerFactory.getLogger(RegistrationController.class);
     private static final String MODE_REG = "reg";
-    private static final String SECRET_KEY = "6LeX6R8TAAAAACSadTiM8JLXGOHD6WcrCZkajh5c";
+    private static final String SECRET_KEY = "6LeX6R8TAAAAACSadTiM8JLXGOHD6WcrCZkajh5c"; //TODO: move to the property file
     private final ExistingUserValidator userValidator;
 
     @Autowired

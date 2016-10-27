@@ -8,20 +8,12 @@ public enum Statuses {
     WRONG_TEXT_SIZE(422, "Max text size is exceeded"),
     WRONG_TRANSLATION_DIRECTION(501, "This direction of translation is wrong or api doesn't support it");
 
-    private String message;
-    private int code;
+    public final String message;
+    public final int code;
 
     Statuses(int code, String message) {
         this.code = code;
         this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public int getCode() {
-        return code;
     }
 
     public static Statuses getStatus(int code) {
