@@ -44,12 +44,12 @@ body {
 }
 
 .blockHeader {
-    margin-left: 0em;
-    margin-right: 0em;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .blockUser {
-    margin-left: 0em;
-    margin-right: 0em;
+    margin-left: 0;
+    margin-right: 0;
     margin-top: 20%;
 }
