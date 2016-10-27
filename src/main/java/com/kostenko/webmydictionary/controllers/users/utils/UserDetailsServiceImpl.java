@@ -18,7 +18,7 @@ import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-@Service
+@Service("UserDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserService userService;
 
