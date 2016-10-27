@@ -2,9 +2,13 @@ package com.kostenko.webmydictionary.controllers.users;
 
 import com.kostenko.webmydictionary.controllers.users.utils.EditForm;
 import com.kostenko.webmydictionary.dao.domain.users.User;
+import com.kostenko.webmydictionary.services.RoleService;
+import com.kostenko.webmydictionary.services.UserService;
 import com.kostenko.webmydictionary.utils.Constants;
+import com.kostenko.webmydictionary.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +30,11 @@ public class EditController extends AbstractController implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(EditController.class);
     private static final String ADMIN_EDIT = "/admin/edit";
     private static final String MODE_EDIT = "edit";
+
+    @Autowired
+    public EditController(RoleService roleService, UserService userService, Utils utils) {
+        super(roleService, userService, utils);
+    }
 
     @RequestMapping(value = ADMIN_EDIT, method = RequestMethod.GET)
     public String showEditUserView(@RequestParam("login") String login, Model model) {

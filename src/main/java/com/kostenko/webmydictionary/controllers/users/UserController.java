@@ -11,13 +11,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.Serializable;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Controller
 @Scope("session")
 public class UserController implements Serializable {
     private static final long serialVersionUID = -7895793397104017186L;
+    private final UserService userService;
 
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        checkNotNull(userService, "UserService can't be null");
+        this.userService = userService;
+    }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String login(Model model) {

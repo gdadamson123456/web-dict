@@ -9,12 +9,18 @@ import org.springframework.stereotype.Service;
 import java.io.Serializable;
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Service(value = "userService")
 public class UserServiceImpl implements UserService, Serializable {
     private static final long serialVersionUID = 1746303374630617701L;
+    private final UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    public UserServiceImpl(UserRepository userRepository) {
+        checkNotNull(userRepository, "UserRepository can't be null");
+        this.userRepository = userRepository;
+    }
 
     @Override
     public void create(User user) {

@@ -6,11 +6,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Service
 public class ExistingUserValidator implements Validator {
+    private final UserService userService;
 
     @Autowired
-    private UserService userService;
+    public ExistingUserValidator(UserService userService) {
+        checkNotNull(userService, "UserService can't be null");
+        this.userService = userService;
+    }
 
     @Override
     public boolean supports(Class<?> clazz) {

@@ -11,14 +11,23 @@ import org.springframework.ui.Model;
 
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Controller
 public abstract class AbstractController {
+    protected final UserService userService;
+    protected final RoleService roleService;
+    protected final Utils utils;
+
     @Autowired
-    protected UserService userService;
-    @Autowired
-    protected RoleService roleService;
-    @Autowired
-    protected Utils utils;
+    public AbstractController(RoleService roleService, UserService userService, Utils utils) {
+        checkNotNull(roleService, "RoleService can't be null");
+        checkNotNull(userService, "UserService can't be null");
+        checkNotNull(utils, "Utils can't be null");
+        this.roleService = roleService;
+        this.utils = utils;
+        this.userService = userService;
+    }
 
     protected void setRolesToModel(Model model, List<String> roles) {
         model.addAttribute("roles", roles);

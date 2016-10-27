@@ -16,11 +16,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+    private final UserService userService;
 
     @Autowired
-    private UserService userService;
+    public UserDetailsServiceImpl(UserService userService) {
+        checkNotNull(userService, "UserService can't be null");
+        this.userService = userService;
+    }
 
     @Override
     public UserDetails loadUserByUsername(final String login) throws UsernameNotFoundException {
@@ -39,7 +45,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private List<GrantedAuthority> buildUserAuthority(Role userRoles) {
         Set<GrantedAuthority> setAuths = new HashSet<>();
         setAuths.add(new SimpleGrantedAuthority(userRoles.getName()));
-        List<GrantedAuthority> Result = new ArrayList<>(setAuths);
-        return Result;
+        return new ArrayList<>(setAuths);
     }
 }

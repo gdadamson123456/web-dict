@@ -10,11 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @RestController
 @RequestMapping("/api/rest/roles")
 public class RoleRest {
+    private final RoleService roleService;
+
     @Autowired
-    private RoleService roleService;
+    public RoleRest(RoleService roleService) {
+        checkNotNull(roleService, "RoleService can't be null");
+        this.roleService = roleService;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Role> getRoles() {

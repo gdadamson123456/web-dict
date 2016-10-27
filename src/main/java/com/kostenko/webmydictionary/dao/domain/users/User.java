@@ -77,8 +77,7 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        if (!login.equals(user.login)) return false;
-        return email.equals(user.email);
+        return login.equals(user.login) && email.equals(user.email);
     }
 
     @Override

@@ -14,13 +14,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.Serializable;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Controller
 @Scope("session")
 public class DeleteController implements Serializable {
     private static final long serialVersionUID = 6057559074566946472L;
+    private final UserService userService;
 
     @Autowired
-    private UserService userService;
+    public DeleteController(UserService userService) {
+        checkNotNull(userService, "UserService can't be null");
+        this.userService = userService;
+    }
 
     @RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
     public String deleteUser(@RequestParam("id") String id, Model model) {

@@ -14,16 +14,25 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.io.Serializable;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Controller
 @SessionAttributes({"sessionUser"})
 public class WelcomeController implements Serializable {
     private static final long serialVersionUID = 3954475661965470388L;
+    private final Utils utils;
+    private final UserService userService;
+    private final RoleService roleService;
+
     @Autowired
-    private Utils utils;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private RoleService roleService;
+    public WelcomeController(Utils utils, UserService userService, RoleService roleService) {
+        checkNotNull(utils, "Utils can't be null");
+        checkNotNull(userService, "UserService can't be null");
+        checkNotNull(roleService, "RoleService can't be null");
+        this.utils = utils;
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     @RequestMapping("/")
     public String index(Model model) {

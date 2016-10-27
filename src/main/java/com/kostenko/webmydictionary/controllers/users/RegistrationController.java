@@ -5,7 +5,10 @@ import com.kostenko.webmydictionary.controllers.users.utils.ExistingUserValidato
 import com.kostenko.webmydictionary.controllers.users.utils.recaptcha.ReCaptchaChecker;
 import com.kostenko.webmydictionary.controllers.users.utils.recaptcha.ReCaptchaCheckerResponse;
 import com.kostenko.webmydictionary.dao.domain.users.User;
+import com.kostenko.webmydictionary.services.RoleService;
+import com.kostenko.webmydictionary.services.UserService;
 import com.kostenko.webmydictionary.utils.Constants;
+import com.kostenko.webmydictionary.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +23,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.io.Serializable;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Controller
 public class RegistrationController extends AbstractController implements Serializable {
     private static final long serialVersionUID = -1902249837028294777L;
     private static final Logger LOG = LoggerFactory.getLogger(RegistrationController.class);
     private static final String MODE_REG = "reg";
     private static final String SECRET_KEY = "6LeX6R8TAAAAACSadTiM8JLXGOHD6WcrCZkajh5c";
+    private final ExistingUserValidator userValidator;
 
     @Autowired
-    private ExistingUserValidator userValidator;
+    public RegistrationController(RoleService roleService, UserService userService, Utils utils, ExistingUserValidator userValidator) {
+        super(roleService, userService, utils);
+        checkNotNull(userValidator, "UserValidator can't be null");
+        this.userValidator = userValidator;
+    }
 
     @RequestMapping(value = "/reg", method = RequestMethod.GET)
     public String openRegistrationForm(Model model) {

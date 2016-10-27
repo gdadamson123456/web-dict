@@ -8,10 +8,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Service(value = "unitService")
 public class UnitServiceImpl implements UnitService {
+    private final UnitRepository unitRepository;
+
     @Autowired
-    private UnitRepository unitRepository;
+    public UnitServiceImpl(UnitRepository unitRepository) {
+        checkNotNull(unitRepository, "UnitRepository can't be null");
+        this.unitRepository = unitRepository;
+    }
 
     @Override
     public void save(Unit unit) {

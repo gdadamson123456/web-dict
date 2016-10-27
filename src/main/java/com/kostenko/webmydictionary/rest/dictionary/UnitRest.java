@@ -15,14 +15,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @RestController
 @RequestMapping("/api/rest/units")
 public class UnitRest {
     private static final Logger LOG = LoggerFactory.getLogger(UnitRest.class);
+    private final UnitService unitService;
+    private final TranslationService translationService;
+
     @Autowired
-    private UnitService unitService;
-    @Autowired
-    private TranslationService translationService;
+    public UnitRest(UnitService unitService, TranslationService translationService) {
+        checkNotNull(unitService, "UnitService can't be null");
+        checkNotNull(translationService, "TranslationService can't be null");
+        this.unitService = unitService;
+        this.translationService = translationService;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Unit>> getUnits() {

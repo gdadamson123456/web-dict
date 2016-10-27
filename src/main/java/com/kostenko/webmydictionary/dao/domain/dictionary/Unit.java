@@ -84,10 +84,7 @@ public class Unit implements Serializable {
             return false;
         }
         Unit unit = (Unit) o;
-        if (!source.equals(unit.source)) {
-            return false;
-        }
-        return translation != null ? translation.equals(unit.translation) : unit.translation == null;
+        return source.equals(unit.source) && (translation != null ? translation.equals(unit.translation) : unit.translation == null);
 
     }
 

@@ -10,12 +10,20 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Service(value = "translationService")
 public class TranslationServiceImpl implements TranslationService {
+    private final UnitService unitService;
+    private final TranslatorAPI<YandexResponse> translatorAPI;
+
     @Autowired
-    private UnitService unitService;
-    @Autowired
-    private TranslatorAPI<YandexResponse> translatorAPI;
+    public TranslationServiceImpl(TranslatorAPI<YandexResponse> translatorAPI, UnitService unitService) {
+        checkNotNull(translatorAPI, "TranslatorAPI can't be null");
+        checkNotNull(unitService, "UnitService can't be null");
+        this.translatorAPI = translatorAPI;
+        this.unitService = unitService;
+    }
 
     @Override
     public Unit translate(final String from, final String to, final String unit) {

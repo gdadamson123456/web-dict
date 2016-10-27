@@ -3,7 +3,10 @@ package com.kostenko.webmydictionary.controllers.users;
 import com.kostenko.webmydictionary.controllers.users.utils.EditForm;
 import com.kostenko.webmydictionary.controllers.users.utils.ExistingUserValidator;
 import com.kostenko.webmydictionary.dao.domain.users.User;
+import com.kostenko.webmydictionary.services.RoleService;
+import com.kostenko.webmydictionary.services.UserService;
 import com.kostenko.webmydictionary.utils.Constants;
+import com.kostenko.webmydictionary.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,8 @@ import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.Arrays;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Controller
 @Scope("session")
 public class AddController extends AbstractController implements Serializable {
@@ -26,9 +31,14 @@ public class AddController extends AbstractController implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(EditController.class);
     private static final String ADMIN_ADD = "/admin/add";
     private static final String MODE_ADD = "add";
+    private final ExistingUserValidator userValidator;
 
     @Autowired
-    private ExistingUserValidator userValidator;
+    public AddController(RoleService roleService, UserService userService, Utils utils, ExistingUserValidator userValidator) {
+        super(roleService, userService, utils);
+        checkNotNull(userValidator, "UserValidator can't be null");
+        this.userValidator = userValidator;
+    }
 
     @RequestMapping(value = ADMIN_ADD, method = RequestMethod.GET)
     public String showAddUserView(Model model) {

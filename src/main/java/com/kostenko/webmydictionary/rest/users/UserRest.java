@@ -11,12 +11,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @RestController
 @RequestMapping("/api/rest/users")
 public class UserRest {
     private static final Logger LOG = LoggerFactory.getLogger(UserRest.class);
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UserRest(UserService userService) {
+        checkNotNull(userService, "UserService can't be null");
+        this.userService = userService;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<User> getUsers() {
