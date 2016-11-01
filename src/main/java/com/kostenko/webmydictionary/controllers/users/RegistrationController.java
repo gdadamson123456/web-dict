@@ -1,5 +1,7 @@
 package com.kostenko.webmydictionary.controllers.users;
 
+import com.kostenko.webmydictionary.configuration.AppConfigLoader;
+import com.kostenko.webmydictionary.configuration.AppConfigLoader.Property;
 import com.kostenko.webmydictionary.controllers.users.utils.EditForm;
 import com.kostenko.webmydictionary.controllers.users.utils.ExistingUserValidator;
 import com.kostenko.webmydictionary.controllers.users.utils.recaptcha.ReCaptchaChecker;
@@ -30,16 +32,18 @@ public class RegistrationController extends AbstractController implements Serial
     private static final long serialVersionUID = -1902249837028294777L;
     private static final Logger LOG = LoggerFactory.getLogger(RegistrationController.class);
     private static final String MODE_REG = "reg";
-    private static final String SECRET_KEY = "6LeX6R8TAAAAACSadTiM8JLXGOHD6WcrCZkajh5c"; //TODO: move to the property file
-
-
+    private final String secretKey;
     private final ExistingUserValidator userValidator;
+    private final String verifyUrl;
 
     @Autowired
-    public RegistrationController(RoleService roleService, UserService userService, Utils utils, ExistingUserValidator userValidator) {
+    public RegistrationController(RoleService roleService, UserService userService, Utils utils, ExistingUserValidator userValidator, AppConfigLoader appConfigLoader) {
         super(roleService, userService, utils);
         checkNotNull(userValidator, "UserValidator can't be null");
+        checkNotNull(appConfigLoader, "AppConfigLoader can't be null");
         this.userValidator = userValidator;
+        this.secretKey = appConfigLoader.getProperty(Property.RECAPTCHA_KEY_PRIVATE);
+        this.verifyUrl = appConfigLoader.getProperty(Property.RECAPTCHA_VERIFY_URL);
     }
 
     @RequestMapping(value = Constants.Controller.Path.REGISTRATION, method = RequestMethod.GET)
@@ -58,7 +62,7 @@ public class RegistrationController extends AbstractController implements Serial
     public String registerUser(@ModelAttribute(Constants.MODEL_EDIT_FORM) @Valid EditForm editForm,
                                BindingResult bindingResult,
                                @RequestParam("g-recaptcha-response") String gRecaptchaResponse, Model model) {
-        ReCaptchaCheckerResponse response = ReCaptchaChecker.checkReCaptcha(SECRET_KEY, gRecaptchaResponse);
+        ReCaptchaCheckerResponse response = ReCaptchaChecker.checkReCaptcha(secretKey, gRecaptchaResponse, verifyUrl);
         userValidator.validate(editForm, bindingResult);
         if (bindingResult.hasErrors() || !response.getSuccess()) {
             LOG.warn("input data is incorrect");

@@ -1,10 +1,10 @@
 package com.kostenko.webmydictionary.configuration.spring.conf;
 
 import com.kostenko.webmydictionary.utils.Constants;
-import net.tanesha.recaptcha.ReCaptchaImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -14,6 +14,7 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
 @ComponentScan({"com.kostenko.webmydictionary"})
+@PropertySource({"classpath:app.properties"})
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
@@ -29,12 +30,5 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         viewResolver.setPrefix(Constants.Controller.Path.APP_ROOT);
         viewResolver.setSuffix(".jsp");
         return viewResolver;
-    }
-
-    @Bean
-    public ReCaptchaImpl reCaptcha() {
-        ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
-        reCaptcha.setPrivateKey("6LcskR8TAAAAAOPEUfFbTrUMbEAAmLPPCUfYX5xF");//TODO: move to the property file
-        return reCaptcha;
     }
 }

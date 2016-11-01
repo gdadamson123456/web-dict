@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.kostenko.webmydictionary.configuration.AppConfigLoader;
+import com.kostenko.webmydictionary.configuration.AppConfigLoader.Property;
 import com.kostenko.webmydictionary.translators.TranslatorAPI;
 import com.kostenko.webmydictionary.translators.yandex.domain.TranslationResponse;
 import com.kostenko.webmydictionary.translators.yandex.domain.YandexResponse;
@@ -17,6 +19,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -27,31 +30,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Service(value = "translatorAPI")
 public class YandexAPI implements TranslatorAPI<YandexResponse> {
     private static final Logger LOG = LoggerFactory.getLogger(YandexAPI.class);
-    private static final String API_KEY_ONE = "trnsl.1.1.20150522T195930Z.010ab143cb4576f2.568a0965d1a708e331f7af72fc325e30861ff083"; //TODO: move to the property file
-    private static final String API_KEY_TWO = "trnsl.1.1.20150609T180905Z.f13a08e37aa237d0.1d49c5f38dcf5917e5e41950eb2882b27a3b97c8"; //TODO: move to the property file
-    private static final String API_KEY_THREE = "trnsl.1.1.20160512T204421Z.b829b32f4cea989b.3fb210f3bcb6f16c61e92b993ed9d99a5fb9e561"; //TODO: move to the property file
-    private static final String API_KEY_DICTIONARY = "dict.1.1.20160523T184419Z.57f3846f4ebe2a46.14118f8be02cc0ebb7c49576bb500c225cd9d52e"; //TODO: move to the property file
-    private static final List<String> API_KEYS = new ArrayList<>(3);
-    private static final String URL_DICTIONARY = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup"; //TODO: move to the property file
-    private static final String URL_TRANSLATOR = "https://translate.yandex.net/api/v1.5/tr.json/translate"; //TODO: move to the property file
     private static final String translatorTechnology = "Translated by «Yandex.Translator» service "; //TODO: move to the property file for internationalization
     private static final String dictionaryTechnology = "Implemented by «Yandex.Dictionary» service "; //TODO: move to the property file for internationalization
-    private static final List<String> technologies = new ArrayList<>();
+    private final List<String> technologies = new ArrayList<>();
+    private final String urlDictionary;
+    private final String urlTranslator;
+    private String apiKeyTranslation;
+    private String apiKeyDictionary;
 
-    static {
+
+    @Autowired
+    public YandexAPI(AppConfigLoader appConfigLoader) {
+        checkNotNull(appConfigLoader, "AppConfigLoader can't be null");
+        apiKeyTranslation = appConfigLoader.getProperty(Property.YANDEX_API_TRANSLATION_KEY);
+        urlTranslator = appConfigLoader.getProperty(Property.YANDEX_API_TRANSLATION_URL);
+        apiKeyDictionary = appConfigLoader.getProperty(Property.YANDEX_API_DICTIONARY_KEY);
+        urlDictionary = appConfigLoader.getProperty(Property.YANDEX_API_DICTIONARY_URL);
         technologies.add(translatorTechnology);
         technologies.add(dictionaryTechnology);
-    }
-
-    private static int index = 0;
-
-    static {
-        API_KEYS.add(API_KEY_ONE);
-        API_KEYS.add(API_KEY_TWO);
-        API_KEYS.add(API_KEY_THREE);
     }
 
     @Override
@@ -96,10 +97,10 @@ public class YandexAPI implements TranslatorAPI<YandexResponse> {
 
     private String translateThroughTranslator(String from, String to, String text) {
         List<NameValuePair> params = new ArrayList<>();
-        params.add(new BasicNameValuePair("key", getApiKey()));
+        params.add(new BasicNameValuePair("key", apiKeyTranslation));
         params.add(new BasicNameValuePair("lang", String.format("%1$s-%2$s", from, to)));
         params.add(new BasicNameValuePair("text", text));
-        HttpPost httpPost = prepareHttpPost(params, URL_TRANSLATOR);
+        HttpPost httpPost = prepareHttpPost(params, urlTranslator);
         StringBuilder stringBuilder = getResponseString(httpPost);
         return stringBuilder.toString();
     }
@@ -130,11 +131,11 @@ public class YandexAPI implements TranslatorAPI<YandexResponse> {
 
     private String translateThroughDictionary(String from, String to, String text) {
         List<NameValuePair> params = new ArrayList<>();
-        params.add(new BasicNameValuePair("key", API_KEY_DICTIONARY));
+        params.add(new BasicNameValuePair("key", apiKeyDictionary));
         params.add(new BasicNameValuePair("lang", String.format("%1$s-%2$s", from, to)));
         params.add(new BasicNameValuePair("text", text));
         params.add(new BasicNameValuePair("ui", to));
-        HttpPost httpPost = prepareHttpPost(params, URL_DICTIONARY);
+        HttpPost httpPost = prepareHttpPost(params, urlDictionary);
         StringBuilder stringBuilder = getResponseString(httpPost);
         return stringBuilder.toString();
     }
@@ -149,13 +150,5 @@ public class YandexAPI implements TranslatorAPI<YandexResponse> {
             }
         }
         return result;
-    }
-
-    private synchronized static String getApiKey() {
-        index = (index++) % (API_KEYS.size());
-        LOG.debug("Current API key index is: " + index);
-        String key = API_KEYS.get(index);
-        LOG.debug("API Key is: " + key);
-        return key;
     }
 }

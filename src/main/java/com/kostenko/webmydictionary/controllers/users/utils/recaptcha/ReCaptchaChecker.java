@@ -5,13 +5,11 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 public abstract class ReCaptchaChecker {
-    public static final String RECAPTCHA_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";//TODO: move to properties
-
-    public static ReCaptchaCheckerResponse checkReCaptcha(String secret, String response) {
+    public static ReCaptchaCheckerResponse checkReCaptcha(String secret, String response, String verifyUrl) {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("secret", secret);
         map.add("response", response);
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForObject(RECAPTCHA_VERIFY_URL, map, ReCaptchaCheckerResponse.class);
+        return restTemplate.postForObject(verifyUrl, map, ReCaptchaCheckerResponse.class);
     }
 }
