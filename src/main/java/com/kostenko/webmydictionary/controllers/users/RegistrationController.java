@@ -71,7 +71,7 @@ public class RegistrationController extends AbstractController implements Serial
     @Override
     protected User getUser(EditForm editForm) {
         User user = editForm.getUserWithoutRole();
-        user.setRole(roleService.findByName("user"));
+        user.setRole(roleService.findByName(Constants.ROLE_USER));
         return user;
     }
 }

@@ -33,10 +33,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").access("hasRole('ROLE_admin')")
                 .antMatchers("/user/**").access("hasAnyRole('ROLE_user', 'ROLE_admin')")
                 .and().formLogin()
+                .permitAll()
+                .loginPage("/log")
                 .defaultSuccessUrl("/")
-                .failureForwardUrl("/log?error")
+                .failureUrl("/log?error")
                 .usernameParameter("username")
-                .passwordParameter("password");
+                .passwordParameter("password")
+                .and().logout()
+                .logoutSuccessUrl("/")
+                .and().csrf();
     }
 
     @Override

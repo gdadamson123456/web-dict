@@ -44,7 +44,7 @@ public class WelcomeController implements Serializable {
         return Constants.View.RedirectionTo.LOGIN;
     }
 
-    private void createData() {
+    private void createData() { //TODO: create db script to create user and delete this code
         if (roleService.findByName(Constants.ROLE_ADMIN) == null) {
             Role role = new Role(Constants.ROLE_ADMIN);
             role.setId(String.valueOf(1));
