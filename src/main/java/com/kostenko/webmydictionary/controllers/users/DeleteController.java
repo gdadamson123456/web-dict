@@ -20,6 +20,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Scope("session")
 public class DeleteController implements Serializable {
     private static final long serialVersionUID = 6057559074566946472L;
+    private static final String ADMIN_DELETE = Constants.View.Path.ADMIN + "/delete";
     private final UserService userService;
 
     @Autowired
@@ -28,7 +29,7 @@ public class DeleteController implements Serializable {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
+    @RequestMapping(value = ADMIN_DELETE, method = RequestMethod.GET)
     public String deleteUser(@RequestParam("id") String id, Model model) {
         User current = new Utils().getUser();
         User user = userService.findById(id);

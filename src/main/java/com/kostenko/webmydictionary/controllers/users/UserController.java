@@ -25,7 +25,7 @@ public class UserController implements Serializable {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @RequestMapping(value = Constants.View.Path.USER, method = RequestMethod.GET)
     public String login(Model model) {
         model.addAttribute("users", userService.findAll());
         return Constants.View.USER;

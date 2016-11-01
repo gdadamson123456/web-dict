@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class LoginController implements Serializable {
     private static final long serialVersionUID = -7622903889055402474L;
 
-    @RequestMapping(value = "/log", method = RequestMethod.GET)
+    @RequestMapping(value = Constants.View.Path.LOGIN, method = RequestMethod.GET)
     public String login(@RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "logout", required = false) String logout, Model model) {
         if (error != null) {

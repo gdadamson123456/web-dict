@@ -1,5 +1,6 @@
 package com.kostenko.webmydictionary.configuration.spring.conf;
 
+import com.kostenko.webmydictionary.utils.Constants;
 import net.tanesha.recaptcha.ReCaptchaImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,7 +26,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix("/");
+        viewResolver.setPrefix(Constants.View.Path.APP_ROOT);
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }

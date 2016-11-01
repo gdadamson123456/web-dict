@@ -16,9 +16,19 @@ public final class Constants {
 
         public final static class RedirectionTo {
             public static final String ERROR = "redirect:/error";
-            public static final String LOGIN = "redirect:/log";
-            public static final String ADMIN = "redirect:/admin";
-            public static final String USER = "redirect:/user";
+            public static final String LOGIN = "redirect:" + Path.LOGIN;
+            public static final String ADMIN = "redirect:" + Path.ADMIN;
+            public static final String USER = "redirect:" + Path.USER;
+            public static final String CONGRATULATION = "redirect:" + Path.CONGRATULATION;
+        }
+
+        public final static class Path {
+            public static final String APP_ROOT = "/";
+            public static final String ADMIN = "admin";
+            public static final String USER = "user";
+            public static final String LOGIN = "log";
+            public static final String REGISTRATION = "reg";
+            public static final String CONGRATULATION = "congratulation";
         }
     }
 }

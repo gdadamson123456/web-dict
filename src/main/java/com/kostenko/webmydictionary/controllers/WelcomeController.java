@@ -34,7 +34,7 @@ public class WelcomeController implements Serializable {
         this.roleService = roleService;
     }
 
-    @RequestMapping("/")
+    @RequestMapping(Constants.View.Path.APP_ROOT)
     public String index(Model model) {
         createData();
         User user = utils.getUser();

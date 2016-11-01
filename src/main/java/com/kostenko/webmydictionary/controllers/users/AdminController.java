@@ -24,7 +24,7 @@ public class AdminController implements Serializable {
         this.userService = userService;
     }
 
-    @RequestMapping("admin")
+    @RequestMapping(Constants.View.Path.ADMIN)
     public String listUsers(Model model) {
         model.addAttribute("users", userService.findAll());
         return Constants.View.ADMIN;

@@ -1,6 +1,7 @@
 package com.kostenko.webmydictionary.configuration.spring.init;
 
 import com.kostenko.webmydictionary.configuration.spring.conf.WebMvcConfiguration;
+import com.kostenko.webmydictionary.utils.Constants;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -16,6 +17,6 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected String[] getServletMappings() {
-        return new String[]{"/"};
+        return new String[]{Constants.View.Path.APP_ROOT};
     }
 }

@@ -31,6 +31,8 @@ public class RegistrationController extends AbstractController implements Serial
     private static final Logger LOG = LoggerFactory.getLogger(RegistrationController.class);
     private static final String MODE_REG = "reg";
     private static final String SECRET_KEY = "6LeX6R8TAAAAACSadTiM8JLXGOHD6WcrCZkajh5c"; //TODO: move to the property file
+
+
     private final ExistingUserValidator userValidator;
 
     @Autowired
@@ -40,19 +42,19 @@ public class RegistrationController extends AbstractController implements Serial
         this.userValidator = userValidator;
     }
 
-    @RequestMapping(value = "/reg", method = RequestMethod.GET)
+    @RequestMapping(value = Constants.View.Path.REGISTRATION, method = RequestMethod.GET)
     public String openRegistrationForm(Model model) {
         model.addAttribute(Constants.MODEL_EDIT_FORM, new EditForm());
         model.addAttribute(Constants.MODE, MODE_REG);
         return Constants.View.EDIT_USER;
     }
 
-    @RequestMapping(value = "/congratulation", method = RequestMethod.GET)
+    @RequestMapping(value = Constants.View.Path.CONGRATULATION, method = RequestMethod.GET)
     public String openCongratulationView(Model model) {
         return "AfterRegisterView";
     }
 
-    @RequestMapping(value = "/reg", method = RequestMethod.POST)
+    @RequestMapping(value = Constants.View.Path.REGISTRATION, method = RequestMethod.POST)
     public String registerUser(@ModelAttribute(Constants.MODEL_EDIT_FORM) @Valid EditForm editForm,
                                BindingResult bindingResult,
                                @RequestParam("g-recaptcha-response") String gRecaptchaResponse, Model model) {
@@ -65,7 +67,7 @@ public class RegistrationController extends AbstractController implements Serial
         }
         User user = getUser(editForm);
         userService.create(user);
-        return "redirect:/congratulation";
+        return Constants.View.RedirectionTo.CONGRATULATION;
     }
 
     @Override
