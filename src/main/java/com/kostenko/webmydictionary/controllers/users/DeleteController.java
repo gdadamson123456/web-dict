@@ -20,7 +20,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Scope("session")
 public class DeleteController implements Serializable {
     private static final long serialVersionUID = 6057559074566946472L;
-    private static final String ADMIN_DELETE = Constants.View.Path.ADMIN + "/delete";
+    private static final String ADMIN_DELETE = Constants.Controller.Path.ADMIN + "/delete";
     private final UserService userService;
 
     @Autowired
@@ -37,10 +37,10 @@ public class DeleteController implements Serializable {
             if (user != null) {
                 userService.remove(user);
             }
-            return Constants.View.RedirectionTo.ADMIN;
+            return Constants.Controller.RedirectionTo.ADMIN;
         } else {
             model.addAttribute(Constants.ERROR_MESSAGE, "Can't delete current user");
-            return Constants.View.RedirectionTo.ERROR;
+            return Constants.Controller.RedirectionTo.ERROR;
         }
     }
 }

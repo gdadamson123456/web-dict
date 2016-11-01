@@ -42,19 +42,19 @@ public class RegistrationController extends AbstractController implements Serial
         this.userValidator = userValidator;
     }
 
-    @RequestMapping(value = Constants.View.Path.REGISTRATION, method = RequestMethod.GET)
+    @RequestMapping(value = Constants.Controller.Path.REGISTRATION, method = RequestMethod.GET)
     public String openRegistrationForm(Model model) {
         model.addAttribute(Constants.MODEL_EDIT_FORM, new EditForm());
         model.addAttribute(Constants.MODE, MODE_REG);
         return Constants.View.EDIT_USER;
     }
 
-    @RequestMapping(value = Constants.View.Path.CONGRATULATION, method = RequestMethod.GET)
+    @RequestMapping(value = Constants.Controller.Path.CONGRATULATION, method = RequestMethod.GET)
     public String openCongratulationView(Model model) {
         return "AfterRegisterView";
     }
 
-    @RequestMapping(value = Constants.View.Path.REGISTRATION, method = RequestMethod.POST)
+    @RequestMapping(value = Constants.Controller.Path.REGISTRATION, method = RequestMethod.POST)
     public String registerUser(@ModelAttribute(Constants.MODEL_EDIT_FORM) @Valid EditForm editForm,
                                BindingResult bindingResult,
                                @RequestParam("g-recaptcha-response") String gRecaptchaResponse, Model model) {
@@ -67,7 +67,7 @@ public class RegistrationController extends AbstractController implements Serial
         }
         User user = getUser(editForm);
         userService.create(user);
-        return Constants.View.RedirectionTo.CONGRATULATION;
+        return Constants.Controller.RedirectionTo.CONGRATULATION;
     }
 
     @Override

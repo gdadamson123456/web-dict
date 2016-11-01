@@ -3,6 +3,7 @@ package com.kostenko.webmydictionary.rest.dictionary;
 import com.kostenko.webmydictionary.dao.domain.dictionary.Unit;
 import com.kostenko.webmydictionary.services.TranslationService;
 import com.kostenko.webmydictionary.services.UnitService;
+import com.kostenko.webmydictionary.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.util.List;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 @RestController
-@RequestMapping("/api/rest/units")
+@RequestMapping(Constants.Api.Rest.UNITS)
 public class UnitRest {
     private static final Logger LOG = LoggerFactory.getLogger(UnitRest.class);
     private final UnitService unitService;

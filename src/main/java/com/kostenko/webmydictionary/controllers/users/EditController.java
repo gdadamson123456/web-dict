@@ -57,7 +57,7 @@ public class EditController extends AbstractController implements Serializable {
         }
         User user = getUser(editForm);
         userService.update(user);
-        return Constants.View.RedirectionTo.ADMIN;
+        return Constants.Controller.RedirectionTo.ADMIN;
     }
 
     private List<String> getCorrectRolesList(User user) {

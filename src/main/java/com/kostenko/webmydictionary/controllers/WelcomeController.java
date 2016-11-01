@@ -34,14 +34,14 @@ public class WelcomeController implements Serializable {
         this.roleService = roleService;
     }
 
-    @RequestMapping(Constants.View.Path.APP_ROOT)
+    @RequestMapping(Constants.Controller.Path.APP_ROOT)
     public String index(Model model) {
         createData();
         User user = utils.getUser();
         if (user != null) {
             return getUserHomeLink(user, model);
         }
-        return Constants.View.RedirectionTo.LOGIN;
+        return Constants.Controller.RedirectionTo.LOGIN;
     }
 
     private void createData() { //TODO: create db script to create user and delete this code
@@ -68,9 +68,9 @@ public class WelcomeController implements Serializable {
     private String getUserHomeLink(User user, Model model) {
         model.addAttribute("sessionUser", user);
         if (Constants.ROLE_ADMIN.equals(user.getRole().getName())) {
-            return Constants.View.RedirectionTo.ADMIN;
+            return Constants.Controller.RedirectionTo.ADMIN;
         } else {
-            return Constants.View.RedirectionTo.USER;
+            return Constants.Controller.RedirectionTo.USER;
         }
     }
 }

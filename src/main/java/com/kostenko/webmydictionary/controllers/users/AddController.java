@@ -60,6 +60,6 @@ public class AddController extends AbstractController implements Serializable {
         }
         User user = getUser(editForm);
         userService.create(user);
-        return Constants.View.RedirectionTo.ADMIN;
+        return Constants.Controller.RedirectionTo.ADMIN;
     }
 }

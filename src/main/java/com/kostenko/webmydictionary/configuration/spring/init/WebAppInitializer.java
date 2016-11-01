@@ -17,6 +17,6 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected String[] getServletMappings() {
-        return new String[]{Constants.View.Path.APP_ROOT};
+        return new String[]{Constants.Controller.Path.APP_ROOT};
     }
 }

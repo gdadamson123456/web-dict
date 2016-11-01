@@ -2,6 +2,7 @@ package com.kostenko.webmydictionary.rest.users;
 
 import com.kostenko.webmydictionary.dao.domain.users.User;
 import com.kostenko.webmydictionary.services.UserService;
+import com.kostenko.webmydictionary.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.List;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 @RestController
-@RequestMapping("/api/rest/users")
+@RequestMapping(Constants.Api.Rest.USERS)
 public class UserRest {
     private static final Logger LOG = LoggerFactory.getLogger(UserRest.class);
     private final UserService userService;
