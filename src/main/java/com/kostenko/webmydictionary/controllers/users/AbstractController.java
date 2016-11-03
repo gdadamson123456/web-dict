@@ -5,6 +5,7 @@ import com.kostenko.webmydictionary.dao.domain.users.User;
 import com.kostenko.webmydictionary.services.RoleService;
 import com.kostenko.webmydictionary.services.UserService;
 import com.kostenko.webmydictionary.utils.Utils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+@Slf4j
 @Controller
 public abstract class AbstractController {
     protected final UserService userService;

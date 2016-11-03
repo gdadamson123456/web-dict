@@ -1,6 +1,7 @@
 package com.kostenko.webmydictionary.controllers.users.utils;
 
 import com.kostenko.webmydictionary.dao.domain.users.User;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.AssertTrue;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Service
+@Data
 public class EditForm {
     @NotNull
     @Size(min = 2, message = "minimum login size is 2 symbols")
@@ -31,58 +33,10 @@ public class EditForm {
     @AssertTrue(message = "password verify field should be equal than pass field")
     private Boolean isSamePasswords;
 
-    public Boolean getIsSamePasswords() {
-        return isSamePasswords;
-    }
-
-    public void setIsSamePasswords(Boolean isSamePasswords) {
-        this.isSamePasswords = isSamePasswords;
-    }
-
     @AssertTrue(message = "This login is already registered")
     private boolean isValid() {
         isSamePasswords = this.password.equals(this.passwordRepeat);
         return isSamePasswords;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPasswordRepeat() {
-        return passwordRepeat;
-    }
-
-    public void setPasswordRepeat(String passwordRepeat) {
-        this.passwordRepeat = passwordRepeat;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public User getUserWithoutRole() {
@@ -101,13 +55,5 @@ public class EditForm {
         email = user.getEmail();
         id = user.getId();
         role = user.getRole().getName();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }

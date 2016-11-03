@@ -6,8 +6,7 @@ import com.kostenko.webmydictionary.services.RoleService;
 import com.kostenko.webmydictionary.services.UserService;
 import com.kostenko.webmydictionary.utils.Constants;
 import com.kostenko.webmydictionary.utils.Utils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -23,11 +22,11 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Controller
 @Scope("session")
 public class EditController extends AbstractController implements Serializable {
     private static final long serialVersionUID = 3870664333932998458L;
-    private static final Logger LOG = LoggerFactory.getLogger(EditController.class);
     private static final String ADMIN_EDIT = "/admin/edit";
     private static final String MODE_EDIT = "edit";
 
@@ -50,7 +49,7 @@ public class EditController extends AbstractController implements Serializable {
     public String editUser(@ModelAttribute(Constants.MODEL_EDIT_FORM) @Valid EditForm editForm,
                            BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            LOG.warn("input data is incorrect");
+            log.warn("input data is incorrect");
             setRolesToModel(model, getCorrectRolesList(utils.getUser()));
             model.addAttribute(Constants.MODE, MODE_EDIT);
             return Constants.View.EDIT_USER;

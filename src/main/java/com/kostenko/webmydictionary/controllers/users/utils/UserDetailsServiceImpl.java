@@ -2,6 +2,7 @@ package com.kostenko.webmydictionary.controllers.users.utils;
 
 import com.kostenko.webmydictionary.dao.domain.users.Role;
 import com.kostenko.webmydictionary.services.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,6 +19,7 @@ import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+@Slf4j
 @Service("UserDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserService userService;

@@ -2,9 +2,13 @@ package com.kostenko.webmydictionary.translators.yandex.domain.dictionary;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+@Slf4j
+@Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Definition {
     @JsonProperty("text")
@@ -15,38 +19,4 @@ public class Definition {
     private String originalGender;
     @JsonProperty("tr")
     private List<Translation> translations;
-
-    public String getOriginalText() {
-        return originalText;
-    }
-
-    public void setOriginalText(String originalText) {
-        this.originalText = originalText;
-    }
-
-    public String getOriginalPosition() {
-        return originalPosition;
-    }
-
-    public void setOriginalPosition(String originalPosition) {
-        this.originalPosition = originalPosition;
-    }
-
-    public String getOriginalGender() {
-        return originalGender;
-    }
-
-    public void setOriginalGender(String originalGender) {
-        this.originalGender = originalGender;
-    }
-
-    public List<Translation> getTranslations() {
-        return translations;
-    }
-
-    public void setTranslations(List<Translation> translations) {
-        this.translations = translations;
-    }
-
-
 }

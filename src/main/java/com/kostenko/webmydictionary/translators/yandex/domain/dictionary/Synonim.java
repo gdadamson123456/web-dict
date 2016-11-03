@@ -2,18 +2,13 @@ package com.kostenko.webmydictionary.translators.yandex.domain.dictionary;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
+@Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Synonim {
     @JsonProperty("text")
     private String text;
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
 }

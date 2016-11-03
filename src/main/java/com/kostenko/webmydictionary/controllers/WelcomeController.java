@@ -6,6 +6,7 @@ import com.kostenko.webmydictionary.services.RoleService;
 import com.kostenko.webmydictionary.services.UserService;
 import com.kostenko.webmydictionary.utils.Constants;
 import com.kostenko.webmydictionary.utils.Utils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import java.io.Serializable;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+@Slf4j
 @Controller
 @SessionAttributes({"sessionUser"})
 public class WelcomeController implements Serializable {

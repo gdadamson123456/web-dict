@@ -1,5 +1,8 @@
 package com.kostenko.webmydictionary.translators.yandex;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public enum Statuses {
     OK(200, "Success"),
     WRONG_API_KEY(401, "Wrong API Key"),

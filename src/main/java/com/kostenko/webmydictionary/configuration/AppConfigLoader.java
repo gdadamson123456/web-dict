@@ -2,21 +2,28 @@ package com.kostenko.webmydictionary.configuration;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
+@Slf4j
 public class AppConfigLoader {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AppConfigLoader.class);
     private final Environment environment;
 
     @Autowired
     public AppConfigLoader(Environment environment) {
         this.environment = environment;
+    }
+
+    public String getProperty(Property property) {
+        String value = Optional.fromNullable(System.getenv(property.value)).or(environment.getProperty(property.value));
+        log.debug(String.format("%s=%s", property.value, value));
+        Preconditions.checkNotNull(value, "property can't be null, please check configuration");
+        Preconditions.checkArgument(StringUtils.isNotBlank(value), "property can't has empty value, please check configuration");
+        return value;
     }
 
     public enum Property {
@@ -37,13 +44,5 @@ public class AppConfigLoader {
         Property(String value) {
             this.value = value;
         }
-    }
-
-    public String getProperty(Property property) {
-        String value = Optional.fromNullable(System.getenv(property.value)).or(environment.getProperty(property.value));
-        LOGGER.debug(String.format("%s=%s", property.value, value));
-        Preconditions.checkNotNull(value, "property can't be null, please check configuration");
-        Preconditions.checkArgument(StringUtils.isNotBlank(value), "property can't has empty value, please check configuration");
-        return value;
     }
 }

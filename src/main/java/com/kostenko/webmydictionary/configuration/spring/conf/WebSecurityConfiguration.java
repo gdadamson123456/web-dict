@@ -1,5 +1,6 @@
 package com.kostenko.webmydictionary.configuration.spring.conf;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+@Slf4j
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {

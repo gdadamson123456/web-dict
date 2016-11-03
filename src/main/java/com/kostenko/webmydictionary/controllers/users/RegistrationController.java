@@ -11,8 +11,7 @@ import com.kostenko.webmydictionary.services.RoleService;
 import com.kostenko.webmydictionary.services.UserService;
 import com.kostenko.webmydictionary.utils.Constants;
 import com.kostenko.webmydictionary.utils.Utils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,10 +26,10 @@ import java.io.Serializable;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+@Slf4j
 @Controller
 public class RegistrationController extends AbstractController implements Serializable {
     private static final long serialVersionUID = -1902249837028294777L;
-    private static final Logger LOG = LoggerFactory.getLogger(RegistrationController.class);
     private static final String MODE_REG = "reg";
     private final String secretKey;
     private final ExistingUserValidator userValidator;
@@ -65,7 +64,7 @@ public class RegistrationController extends AbstractController implements Serial
         ReCaptchaCheckerResponse response = ReCaptchaChecker.checkReCaptcha(secretKey, gRecaptchaResponse, verifyUrl);
         userValidator.validate(editForm, bindingResult);
         if (bindingResult.hasErrors() || !response.getSuccess()) {
-            LOG.warn("input data is incorrect");
+            log.warn("input data is incorrect");
             model.addAttribute(Constants.MODE, MODE_REG);
             return Constants.View.EDIT_USER;
         }

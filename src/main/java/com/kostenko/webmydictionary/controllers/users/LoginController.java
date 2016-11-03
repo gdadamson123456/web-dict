@@ -1,6 +1,7 @@
 package com.kostenko.webmydictionary.controllers.users;
 
 import com.kostenko.webmydictionary.utils.Constants;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.Serializable;
 
+@Slf4j
 @Controller
 public class LoginController implements Serializable {
     private static final long serialVersionUID = -7622903889055402474L;

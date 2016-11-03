@@ -9,6 +9,7 @@ import com.kostenko.webmydictionary.configuration.AppConfigLoader.Property;
 import com.kostenko.webmydictionary.translators.TranslatorAPI;
 import com.kostenko.webmydictionary.translators.yandex.domain.TranslationResponse;
 import com.kostenko.webmydictionary.translators.yandex.domain.YandexResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -17,8 +18,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +31,9 @@ import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+@Slf4j
 @Service(value = "translatorAPI")
 public class YandexAPI implements TranslatorAPI<YandexResponse> {
-    private static final Logger LOG = LoggerFactory.getLogger(YandexAPI.class);
     private static final String translatorTechnology = "Translated by «Yandex.Translator» service "; //TODO: move to the property file for internationalization
     private static final String dictionaryTechnology = "Implemented by «Yandex.Dictionary» service "; //TODO: move to the property file for internationalization
     private final List<String> technologies = new ArrayList<>();
@@ -73,9 +72,9 @@ public class YandexAPI implements TranslatorAPI<YandexResponse> {
             TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String, Object>>() {
             };
             translationDictionaryResult = objectMapper.readValue(str, typeRef);
-            LOG.debug(translationDictionaryResult.toString());
+            log.debug(translationDictionaryResult.toString());
         } catch (IOException e) {
-            LOG.error("Something wrong with request to yandex api or Json mapping", e);
+            log.error("Something wrong with request to yandex api or Json mapping", e);
             translationDictionaryResult = new HashMap<>();
         }
         YandexResponse response = getYandexResponse(translationResponse, translationDictionaryResult);
@@ -124,7 +123,7 @@ public class YandexAPI implements TranslatorAPI<YandexResponse> {
                 }
             }
         } catch (IOException e) {
-            LOG.error("Something wrong with request to yandex api or Json mapping", e);
+            log.error("Something wrong with request to yandex api or Json mapping", e);
         }
         return stringBuilder;
     }

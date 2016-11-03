@@ -1,6 +1,7 @@
 package com.kostenko.webmydictionary.configuration.spring.conf;
 
 import com.kostenko.webmydictionary.utils.Constants;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+@Slf4j
 @Configuration
 @EnableWebMvc
 @ComponentScan({"com.kostenko.webmydictionary"})

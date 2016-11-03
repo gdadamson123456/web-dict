@@ -3,6 +3,7 @@ package com.kostenko.webmydictionary.services.implementation.dictionary;
 import com.kostenko.webmydictionary.dao.UnitRepository;
 import com.kostenko.webmydictionary.dao.domain.dictionary.Unit;
 import com.kostenko.webmydictionary.services.UnitService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+@Slf4j
 @Service(value = "unitService")
 public class UnitServiceImpl implements UnitService {
     private final UnitRepository unitRepository;

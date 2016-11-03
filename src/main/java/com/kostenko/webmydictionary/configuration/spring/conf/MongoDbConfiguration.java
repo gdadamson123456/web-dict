@@ -8,6 +8,7 @@ import com.kostenko.webmydictionary.dao.UserRepository;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,9 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+@Slf4j
 @Configuration
 @EnableMongoRepositories(basePackageClasses = {RoleRepository.class, UserRepository.class, UnitRepository.class})
 public class MongoDbConfiguration {
@@ -26,6 +30,7 @@ public class MongoDbConfiguration {
 
     @Autowired
     public MongoDbConfiguration(AppConfigLoader appConfigLoader) {
+        checkNotNull(appConfigLoader, "AppConfigLoader should be not null");
         this.appConfigLoader = appConfigLoader;
     }
 
