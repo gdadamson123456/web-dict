@@ -62,10 +62,10 @@
                 <tr>
                     <td>Role</td>
                     <td><select name="role" id="roleSelect">
-                        <option value="admin"
-                        <\%= (role.name === "admin") ? 'selected' : '' %> >Admin </option>
-                        <option value="user"
-                        <\%= (role.name === "user") ? 'selected' : '' %> >User </option>
+                        <option value="ROLE_admin"
+                        <\%= (role.name === "ROLE_admin") ? 'selected' : '' %> >Admin </option>
+                        <option value="ROLE_user"
+                        <\%= (role.name === "ROLE_user") ? 'selected' : '' %> >User </option>
                     </select>
                     </td>
                 </tr>

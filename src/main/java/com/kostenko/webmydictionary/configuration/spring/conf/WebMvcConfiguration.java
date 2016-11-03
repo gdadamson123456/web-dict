@@ -79,6 +79,8 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
             role.setId(String.valueOf(1));
             roleService.create(role);
             log.info("Admin role created!");
+        } else {
+            log.info("Admin role had been already created before");
         }
         log.info("Trying to create user role ...");
         if (roleService.findByName(Constants.ROLE_USER) == null) {
@@ -86,6 +88,8 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
             role.setId(String.valueOf(2));
             roleService.create(role);
             log.info("User role created!");
+        } else {
+            log.info("User role had been already created before");
         }
     }
 

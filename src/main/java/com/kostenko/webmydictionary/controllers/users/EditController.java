@@ -62,9 +62,9 @@ public class EditController extends AbstractController implements Serializable {
     private List<String> getCorrectRolesList(User user) {
         List<String> roles;
         if (Constants.ROLE_ADMIN.equals(user.getRole().getName())) {
-            roles = Arrays.asList("admin", "user");
+            roles = Arrays.asList(Constants.ROLE_ADMIN, Constants.ROLE_USER);
         } else {
-            roles = Arrays.asList("user", "admin");
+            roles = Arrays.asList(Constants.ROLE_USER, Constants.ROLE_ADMIN);
         }
         return roles;
     }

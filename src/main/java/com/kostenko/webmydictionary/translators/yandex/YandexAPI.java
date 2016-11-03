@@ -39,8 +39,8 @@ public class YandexAPI implements TranslatorAPI<YandexResponse> {
     private final List<String> technologies = new ArrayList<>();
     private final String urlDictionary;
     private final String urlTranslator;
-    private String apiKeyTranslation;
-    private String apiKeyDictionary;
+    private final String apiKeyTranslation;
+    private final String apiKeyDictionary;
 
 
     @Autowired
