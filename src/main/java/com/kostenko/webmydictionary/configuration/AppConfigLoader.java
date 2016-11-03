@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-@Configuration
 @Slf4j
+@Configuration
 public class AppConfigLoader {
     private final Environment environment;
 
@@ -32,6 +32,9 @@ public class AppConfigLoader {
         DB_NAME("OPENSHIFT_APP_NAME"),
         DB_USER("OPENSHIFT_MONGODB_DB_USERNAME"),
         DB_PASSWORD("OPENSHIFT_MONGODB_DB_PASSWORD"),
+        USER_ADMIN_LOGIN("user.admin.login"),
+        USER_ADMIN_PASS("user.admin.pass"),
+        USER_ADMIN_EMAIL("user.admin.email"),
         RECAPTCHA_KEY_PRIVATE("reCaptcha.key.private"),
         RECAPTCHA_VERIFY_URL("reCaptcha.verify.url"),
         YANDEX_API_TRANSLATION_KEY("yandex.api.translation.key"),
