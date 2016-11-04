@@ -1,12 +1,14 @@
 package com.kostenko.webmydictionary.configuration;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 @Slf4j
 @Configuration
@@ -15,14 +17,15 @@ public class AppConfigLoader {
 
     @Autowired
     public AppConfigLoader(Environment environment) {
+        checkNotNull(environment, "Environment variable was injected as null");
         this.environment = environment;
     }
 
     public String getProperty(Property property) {
         String value = Optional.fromNullable(System.getenv(property.value)).or(environment.getProperty(property.value));
         log.debug(String.format("%s=%s", property.value, value));
-        Preconditions.checkNotNull(value, "property can't be null, please check configuration");
-        Preconditions.checkArgument(StringUtils.isNotBlank(value), "property can't has empty value, please check configuration");
+        checkNotNull(value, "property can't be null, please check configuration");
+        checkArgument(StringUtils.isNotBlank(value), "property can't has empty value, please check configuration");
         return value;
     }
 

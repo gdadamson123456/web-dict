@@ -1,5 +1,6 @@
 package com.kostenko.webmydictionary.dao.domain.users;
 
+import com.kostenko.webmydictionary.utils.Constants;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,7 +9,7 @@ import java.io.Serializable;
 
 @Slf4j
 @Data
-@Document(collection = "users")
+@Document(collection = Constants.DataBase.TABLE_USERS)
 public class User implements Serializable {
     private static final long serialVersionUID = 788105459979932616L;
     private String id;

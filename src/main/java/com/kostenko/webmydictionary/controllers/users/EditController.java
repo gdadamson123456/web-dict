@@ -22,6 +22,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.kostenko.webmydictionary.utils.Constants.ROLE_ADMIN;
+import static com.kostenko.webmydictionary.utils.Constants.ROLE_USER;
+
 @Slf4j
 @Controller
 @Scope("session")
@@ -61,10 +64,10 @@ public class EditController extends AbstractController implements Serializable {
 
     private List<String> getCorrectRolesList(User user) {
         List<String> roles;
-        if (Constants.ROLE_ADMIN.equals(user.getRole().getName())) {
-            roles = Arrays.asList(Constants.ROLE_ADMIN, Constants.ROLE_USER);
+        if (ROLE_ADMIN.equals(user.getRole().getName())) {
+            roles = Arrays.asList(ROLE_ADMIN, ROLE_USER);
         } else {
-            roles = Arrays.asList(Constants.ROLE_USER, Constants.ROLE_ADMIN);
+            roles = Arrays.asList(ROLE_USER, ROLE_ADMIN);
         }
         return roles;
     }

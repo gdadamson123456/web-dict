@@ -1,5 +1,6 @@
 package com.kostenko.webmydictionary.dao.domain.dictionary;
 
+import com.kostenko.webmydictionary.utils.Constants;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-@Document(collection = "units")
+@Document(collection = Constants.DataBase.TABLE_UNITS)
 public class Unit implements Serializable {
     @Id
     private String id;

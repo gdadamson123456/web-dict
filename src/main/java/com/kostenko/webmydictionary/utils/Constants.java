@@ -41,4 +41,10 @@ public final class Constants {
             public static final String USERS = "/api/rest/users";
         }
     }
+
+    public final static class DataBase {
+        public static final String TABLE_USERS = "users";
+        public static final String TABLE_ROLES = "roles";
+        public static final String TABLE_UNITS = "units";
+    }
 }
