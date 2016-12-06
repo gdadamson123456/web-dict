@@ -39,6 +39,7 @@ public final class Constants {
             public static final String UNITS = "/api/rest/units";
             public static final String ROLES = "/api/rest/roles";
             public static final String USERS = "/api/rest/users";
+            public static final String PROPERTIES = "/api/rest/props";
         }
     }
 
