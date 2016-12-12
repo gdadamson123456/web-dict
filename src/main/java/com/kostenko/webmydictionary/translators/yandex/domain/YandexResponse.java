@@ -16,7 +16,7 @@ public class YandexResponse {
     private List<String> technologies;
     private String errorCode;
 
-    public YandexResponse() {
+    private YandexResponse() {
     }
 
     public YandexResponse(int code, String lang, String translation, Map<String, Object> additionalTranslations, List<String> technologies, String errorCode) {

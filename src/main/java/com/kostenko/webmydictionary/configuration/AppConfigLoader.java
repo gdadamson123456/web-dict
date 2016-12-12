@@ -1,11 +1,12 @@
 package com.kostenko.webmydictionary.configuration;
 
-import com.google.common.base.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+
+import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -22,7 +23,7 @@ public class AppConfigLoader {
     }
 
     public String getProperty(Property property) {
-        String value = Optional.fromNullable(System.getenv(property.value)).or(environment.getProperty(property.value));
+        String value = Optional.ofNullable(System.getenv(property.value)).orElse(environment.getProperty(property.value));
         log.debug(String.format("%s=%s", property.value, value));
         checkNotNull(value, "property can't be null, please check configuration");
         checkArgument(StringUtils.isNotBlank(value), "property can't has empty value, please check configuration");
