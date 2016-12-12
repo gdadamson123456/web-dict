@@ -1,19 +1,23 @@
 #!/bin/bash
 
-cd $OPENSHIFT_DATA_DIR
+cd ${OPENSHIFT_DATA_DIR}
 
 #Install maven
 
 if [ ! -d apache-maven-3.3.9 ]; then
+  printf "Installing apache-maven-3.3.9..."
   wget http://www.eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
   tar -zxf apache-maven-3.3.9-bin.tar.gz
   rm apache-maven-3.3.9-bin.tar.gz
+  printf "Finished installing apache-maven-3.3.9"
 fi
 
 #Install tomcat
 
 if [ ! -d apache-tomcat-8.5.9 ]; then
+  printf "Installing apache-tomcat-8.5.9..."
   wget http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.9/bin/apache-tomcat-8.5.9.tar.gz
   tar -zxf apache-tomcat-8.5.9.tar.gz
   rm apache-tomcat-8.5.9.tar.gz
+  printf "Finished installing apache-tomcat-8.5.9"
 fi

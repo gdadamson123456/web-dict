@@ -1,7 +1,17 @@
 #!/bin/bash
-export JAVA_HOME=/etc/alternatives/java_sdk_1.8.0
-export PATH=$JAVA_HOME/bin:$PATH
 
 echo "Deploying application"
+
+cd ${OPENSHIFT_DATA_DIR}/apache-tomcat-8.5.9/webapps
+
+#Remove old ROOT.war
+if [ ! -d ROOT.war ]; then
+  rm ${OPENSHIFT_DATA_DIR}apache-tomcat-8.5.9/webapps/ROOT.war
+fi
+
+#Remove old ROOT folder
+if [ ! -d ROOT ]; then
+  rm -R ${OPENSHIFT_DATA_DIR}apache-tomcat-8.5.9/webapps/ROOT
+fi
 
 cp ${OPENSHIFT_DIY_DIR}webapps/ROOT.war ${OPENSHIFT_DATA_DIR}apache-tomcat-8.5.9/webapps/
