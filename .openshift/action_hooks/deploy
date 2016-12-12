@@ -2,3 +2,6 @@
 export JAVA_HOME=/etc/alternatives/java_sdk_1.8.0
 export PATH=$JAVA_HOME/bin:$PATH
 
+echo "Deploying application"
+
+cp ${OPENSHIFT_DIY_DIR}webapps/ROOT.war ${OPENSHIFT_DATA_DIR}apache-tomcat-8.5.9/webapps/
