@@ -9,10 +9,13 @@ source $OPENSHIFT_CARTRIDGE_SDK_BASH
 #    kill `ps -ef | grep testrubyserver.rb | grep -v grep | awk '{ print $2 }'` > /dev/null 2>&1
 #fi
 
-PID=$(ps -ef | grep java.*\.jar | grep -v grep | awk '{ print $2 }')
-if [ -z "$PID" ]
-then
-    client_result "Application is already stopped"
-else
-    kill $PID
-fi
+#PID=$(ps -ef | grep java.*\.jar | grep -v grep | awk '{ print $2 }')
+#if [ -z "$PID" ]
+#then
+#    client_result "Application is already stopped"
+#else
+#    kill $PID
+#fi
+
+cd $OPENSHIFT_DATA_DIR/apache-tomcat-8.5.9/bin
+./shutdown.sh
