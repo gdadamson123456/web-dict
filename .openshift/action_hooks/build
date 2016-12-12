@@ -2,7 +2,16 @@
 
 cd $OPENSHIFT_DATA_DIR
 
+#Install maven
+
 if [ ! -d apache-maven-3.3.9 ]; then
   wget http://www.eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
   tar -zxf apache-maven-3.3.9-bin.tar.gz
+fi
+
+#Install tomcat
+
+if [ ! -d apache-tomcat-8.5.9 ]; then
+  wget http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.9/bin/apache-tomcat-8.5.9.tar.gz
+  tar -zxf apache-tomcat-8.5.9.tar.gz
 fi
