@@ -49,6 +49,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("css/**").addResourceLocations("/css/").setCachePeriod(31556926);
         registry.addResourceHandler("js/**").addResourceLocations("/js/").setCachePeriod(31556926);
+        registry.addResourceHandler("angular/**").addResourceLocations("/angular/").setCachePeriod(31556926);
     }
 
     @Bean
