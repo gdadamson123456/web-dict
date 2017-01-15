@@ -2,14 +2,14 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
-import {HeroSearchService} from "./hero-search.service";
-import {Hero} from "./hero";
+import {HeroSearchService} from "../services/hero-search.service";
+import {Hero} from "../objects/hero";
 
 @Component({
     moduleId: module.id,
     selector: 'hero-search',
-    templateUrl: './templates/hero-search.component.html',
-    styleUrls: ['./styles/hero-search.component.css'],
+    templateUrl: '../templates/hero-search.component.html',
+    styleUrls: ['../styles/hero-search.component.css'],
     providers: [HeroSearchService]
 })
 export class HeroSearchComponent implements OnInit {
