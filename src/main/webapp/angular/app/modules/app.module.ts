@@ -8,11 +8,12 @@ import {AppRoutingModule} from "./app-routing.module";
 import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 import {InMemoryDataService} from "../services/in-memory-data.service";
 import {AppComponent} from "../components/app.component";
-import {DashboardComponent} from "../components/dashboard.component";
-import {HeroesComponent} from "../components/heroes.component";
-import {HeroDetailComponent} from "../components/hero-detail.component";
-import {HeroService} from "../services/hero.service";
-import {HeroSearchComponent} from "../components/hero-search.component";
+import {UserDetailComponent} from "../components/user-detail.component";
+import {UserService} from "../services/user.service";
+import {UserListComponent} from "../components/users-list.component";
+import {UserEditComponent} from "../components/user-edit.component";
+import {UserAddComponent} from "../components/user-add.component";
+import {RoleService} from "../services/role.service";
 
 @NgModule({
     imports: [
@@ -24,12 +25,12 @@ import {HeroSearchComponent} from "../components/hero-search.component";
     ],
     declarations: [
         AppComponent,
-        DashboardComponent,
-        HeroDetailComponent,
-        HeroesComponent,
-        HeroSearchComponent
+        UserListComponent,
+        UserDetailComponent,
+        UserEditComponent,
+        UserAddComponent
     ],
-    providers: [HeroService],
+    providers: [UserService, RoleService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

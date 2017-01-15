@@ -1,0 +1,10 @@
+<div *ngIf="user">
+    <h2>{{user.login}} details:</h2>
+    <div>
+        login: {{user.login}}
+        <br>
+        email: {{user.email}}
+        <br>
+        role: {{user.role.name}}
+    </div>
+</div>

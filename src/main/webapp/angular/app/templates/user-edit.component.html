@@ -1,0 +1,29 @@
+<div *ngIf="user">
+    <h2>{{user.login}} details:</h2>
+    <div>
+        <label>login: </label>
+        <input [(ngModel)]="user.login" placeholder="login" [readonly]="isReadonly ? true : null"/>
+    </div>
+    <div>
+        <label>password: </label>
+        <input type="password" [(ngModel)]="user.password" placeholder="password"/>
+    </div>
+    <div>
+        <label>password repeat: </label>
+        <input type="password" [(ngModel)]="user.password" placeholder="password"/>
+    </div>
+    <div>
+        <label>email: </label>
+        <input [(ngModel)]="user.email" placeholder="email"/>
+    </div>
+    <div>
+        <label>role: </label>
+        <select [(ngModel)]="selectedRole" (change)="onRoleSelect()">
+            <option [ngValue]="role" *ngFor="let role of roles" [selected]="user.role.name === role.name ? true : null">{{role.name}}
+            </option>
+        </select>
+
+    </div>
+    <button (click)="goBack()">Cancel</button>
+    <button (click)="save()">Save</button>
+</div>
