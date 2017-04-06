@@ -2,7 +2,7 @@
     <h2>{{user.login}} details:</h2>
     <div>
         <label>login: </label>
-        <input [(ngModel)]="user.login" placeholder="login" [readonly]="isReadonly ? true : null"/>
+        <input [(ngModel)]="user.login" placeholder="login" [readonly]="isReadonly"/>
     </div>
     <div>
         <label>password: </label>
@@ -10,7 +10,7 @@
     </div>
     <div>
         <label>password repeat: </label>
-        <input type="password" [(ngModel)]="user.password" placeholder="password"/>
+        <input type="password" [(ngModel)]="user.password_repeat" placeholder="password"/>
     </div>
     <div>
         <label>email: </label>
@@ -19,10 +19,8 @@
     <div>
         <label>role: </label>
         <select [(ngModel)]="selectedRole" (change)="onRoleSelect()">
-            <option [ngValue]="role" *ngFor="let role of roles" [selected]="user.role.name === role.name ? true : null">{{role.name}}
-            </option>
+            <option [ngValue]="role" *ngFor="let role of roles" [selected]="user.role.id === role.id">{{role.name}}</option>
         </select>
-
     </div>
     <button (click)="goBack()">Cancel</button>
     <button (click)="save()">Save</button>
