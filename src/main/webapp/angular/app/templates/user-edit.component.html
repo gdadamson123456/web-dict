@@ -18,8 +18,8 @@
     </div>
     <div>
         <label>role: </label>
-        <select [(ngModel)]="selectedRole" (change)="onRoleSelect()">
-            <option [ngValue]="role" *ngFor="let role of roles" [selected]="user.role.name === role.name">{{role.name}}</option>
+        <select (change)="onRoleSelect($event.target.value)">
+            <option [ngValue]="role" *ngFor="let role of roles" [selected]="user.role.name== role.name">{{role.name}}</option>
         </select>
     </div>
     <button (click)="goBack()">Cancel</button>

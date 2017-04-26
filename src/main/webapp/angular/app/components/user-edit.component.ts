@@ -1,7 +1,7 @@
 import "rxjs/add/operator/switchMap";
 import {Location} from "@angular/common";
 import {Component, OnInit} from "@angular/core";
-import {Params, ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Params} from "@angular/router";
 import {AbstractEditComponent} from "./abstract-edit.component";
 import {RoleService} from "../services/role.service";
 import {UserService} from "../services/user.service";
@@ -28,14 +28,20 @@ export class UserEditComponent extends AbstractEditComponent implements OnInit {
         this.userService.update(this.user).then(() => this.goBack());
     }
 
-    onRoleSelect(): void {
-        this.user.role = this.selectedRole;
+    onRoleSelect(value: string): void {
+        this.roleService.getRoles().then(roles => {
+            this.selectedRole = roles.find(r => r.name == value);
+            this.user.role = this.selectedRole;
+        });
     }
 
     ngOnInit(): void {
         this.route.params
             .switchMap((params: Params) => this.userService.getUser(params['id']))
-            .subscribe(user => this.user = user);
+            .subscribe(user => {
+                this.user = user;
+                this.selectedRole = this.user.role;
+            });
         this.roleService.getRoles().then(roles => this.roles = roles);
     }
 }

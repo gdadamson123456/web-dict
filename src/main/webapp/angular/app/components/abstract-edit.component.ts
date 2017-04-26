@@ -23,7 +23,7 @@ export abstract class AbstractEditComponent {
 
     abstract save(): void;
 
-    abstract onRoleSelect(): void;
+    abstract onRoleSelect(value: string): void;
 
     goBack(): void {
         this.location.back();
