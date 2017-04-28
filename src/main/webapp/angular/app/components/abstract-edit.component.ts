@@ -8,7 +8,6 @@ import {ActivatedRoute} from "@angular/router";
 
 export abstract class AbstractEditComponent {
     user: User;
-    selectedRole: Role;
     roles: Role[];
     isReadonly: boolean;
 
