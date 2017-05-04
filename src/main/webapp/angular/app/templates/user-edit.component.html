@@ -1,27 +1,29 @@
 <div *ngIf="user">
     <h2>{{user.login}} details:</h2>
-    <div>
-        <label>login: </label>
-        <input [(ngModel)]="user.login" placeholder="login" [readonly]="isReadonly"/>
-    </div>
-    <div>
-        <label>password: </label>
-        <input type="password" [(ngModel)]="user.password" placeholder="password"/>
-    </div>
-    <div>
-        <label>password repeat: </label>
-        <input type="password" [(ngModel)]="user.password_repeat" placeholder="password"/>
-    </div>
-    <div>
-        <label>email: </label>
-        <input [(ngModel)]="user.email" placeholder="email"/>
-    </div>
-    <div>
-        <label>role: </label>
-        <select (change)="onRoleSelect($event.target.value)">
-            <option [ngValue]="role" *ngFor="let role of roles" [selected]="user.role.name== role.name">{{role.name}}</option>
-        </select>
-    </div>
-    <button (click)="goBack()">Cancel</button>
-    <button (click)="save()">Save</button>
+    <form>
+        <div>
+            <label for="login">login: </label>
+            <input [(ngModel)]="user.login" id="login" placeholder="login" [readonly]="isReadonly" required name="login"/>
+        </div>
+        <div>
+            <label for="password">password: </label>
+            <input type="password" id="password" [(ngModel)]="user.password" placeholder="password" required name="password"/>
+        </div>
+        <div>
+            <label for="password-repeat">password repeat: </label>
+            <input type="password" id="password-repeat" [(ngModel)]="user.password_repeat" placeholder="password" required name="password-repeat"/>
+        </div>
+        <div>
+            <label for="email">email: </label>
+            <input [(ngModel)]="user.email" id="email" placeholder="email" required name="email"/>
+        </div>
+        <div>
+            <label for="role">role: </label>
+            <select id="role" (change)="onRoleSelect($event.target.value)" required name="role">
+                <option [ngValue]="role" *ngFor="let role of roles" [selected]="user.role.name== role.name">{{role.name}}</option>
+            </select>
+        </div>
+        <button (click)="goBack()">Cancel</button>
+        <button (click)="save()">Save</button>
+    </form>
 </div>
