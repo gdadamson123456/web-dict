@@ -6,8 +6,8 @@ import {UserService} from "../services/user.service";
 @Component({
     moduleId: module.id,
     selector: 'users-list',
-    templateUrl: '../templates/users-list.component.html',
-    styleUrls: ['../styles/users-list.component.css']
+    templateUrl: '../templates/users-list.component.html'
+    // styleUrls: ['../styles/users-list.component.css']
 })
 export class UserListComponent implements OnInit {
     users: User[];

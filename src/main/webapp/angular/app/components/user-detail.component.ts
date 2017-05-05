@@ -8,8 +8,8 @@ import {UserService} from "../services/user.service";
 @Component({
     moduleId: module.id,
     selector: 'user-detail',
-    templateUrl: '../templates/user-detail.component.html',
-    styleUrls: ['../styles/user-detail.component.css']
+    templateUrl: '../templates/user-detail.component.html'
+    // styleUrls: ['../styles/user-detail.component.css']
 })
 export class UserDetailComponent implements OnInit {
     @Input() user: User;

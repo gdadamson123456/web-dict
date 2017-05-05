@@ -7,17 +7,17 @@
     <th>Role</th>
     <th>Actions</th>
     </thead>
-    <tbody id="tableBody" class="UsersList">
+    <tbody id="tableBody" >
     <tr *ngFor="let user of users" (click)="onSelect(user)" [class.selected]="user === selectedUser">
         <td> {{user.login}}</td>
         <td> {{user.role.name}}</td>
         <td>
-            <button class="grey_button" (click)="remove(user); $event.stopPropagation()">Delete</button>
-            <button class="grey_button" (click)="edit(user)">Edit</button>
+            <button (click)="remove(user); $event.stopPropagation()">Delete</button>
+            <button (click)="edit(user)">Edit</button>
         </td>
     </tr>
     </tbody>
 </table>
-<div class="div-line" *ngIf="selectedUser">
+<div  *ngIf="selectedUser">
     <user-detail [user]="selectedUser"></user-detail>
 </div>

@@ -9,8 +9,8 @@ import {UserService} from "../services/user.service";
 @Component({
     moduleId: module.id,
     selector: 'user-edit',
-    templateUrl: '../templates/user-edit.component.html',
-    styleUrls: ['../styles/user-detail.component.css']
+    templateUrl: '../templates/user-edit.component.html'
+    // styleUrls: ['../styles/user-detail.component.css']
 })
 export class UserEditComponent extends AbstractEditComponent implements OnInit {
     constructor(protected userService: UserService,

@@ -1,29 +1,43 @@
 <div *ngIf="user">
     <h2>{{user.login}} details:</h2>
-    <form>
-        <div>
+    <form (ngSubmit)="save()" #userForm="ngForm">
+        <div class="form-group">
             <label for="login">login: </label>
-            <input [(ngModel)]="user.login" id="login" placeholder="login" [readonly]="isReadonly" required name="login"/>
+            <input type="text" [(ngModel)]="user.login" id="login" name="login" placeholder="login" [readonly]="isReadonly" required #login="ngModel" class="form-control"/>
+            <div [hidden]="login.valid || login.pristine" class="alert alert-danger">
+                Login is required
+            </div>
         </div>
-        <div>
+        <div class="form-group">
             <label for="password">password: </label>
-            <input type="password" id="password" [(ngModel)]="user.password" placeholder="password" required name="password"/>
+            <input type="password" [(ngModel)]="user.password" id="password" name="password" placeholder="password" required #password="ngModel" class="form-control"/>
+            <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                Password is required
+            </div>
         </div>
-        <div>
+        <div class="form-group">
             <label for="password-repeat">password repeat: </label>
-            <input type="password" id="password-repeat" [(ngModel)]="user.password_repeat" placeholder="password" required name="password-repeat"/>
+            <input type="password" [(ngModel)]="user.password_repeat" id="password-repeat" name="password-repeat" placeholder="password" required #passwordRepeat="ngModel" class="form-control"/>
+            <div [hidden]="passwordRepeat.valid || passwordRepeat.pristine" class="alert alert-danger">
+                Password is required
+            </div>
         </div>
-        <div>
+        <div class="form-group">
             <label for="email">email: </label>
-            <input [(ngModel)]="user.email" id="email" placeholder="email" required name="email"/>
+            <input type="email" [(ngModel)]="user.email" id="email" name="email" placeholder="email" required #email="ngModel" class="form-control"/>
+            <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+                Email is required
+            </div>
         </div>
-        <div>
+        <div class="form-group">
             <label for="role">role: </label>
-            <select id="role" (change)="onRoleSelect($event.target.value)" required name="role">
-                <option [ngValue]="role" *ngFor="let role of roles" [selected]="user.role.name== role.name">{{role.name}}</option>
+            <select id="role" (change)="onRoleSelect($event.target.value)" required name="role" class="form-control">
+                <option [ngValue]="role" *ngFor="let role of roles" [selected]="user.role.name== role.name">
+                    {{role.name}}
+                </option>
             </select>
         </div>
-        <button (click)="goBack()">Cancel</button>
-        <button (click)="save()">Save</button>
+        <button class="btn btn-default" (click)="goBack()">Cancel</button>
+        <button class="btn btn-success" class="btn btn-success" [disabled]="!userForm.form.valid" (click)="save()">Save</button>
     </form>
 </div>

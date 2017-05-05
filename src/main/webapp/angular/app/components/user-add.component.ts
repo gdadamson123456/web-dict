@@ -11,8 +11,8 @@ import {ActivatedRoute} from "@angular/router";
 @Component({
     moduleId: module.id,
     selector: 'user-add',
-    templateUrl: '../templates/user-edit.component.html',
-    styleUrls: ['../styles/user-detail.component.css']
+    templateUrl: '../templates/user-edit.component.html'
+    // styleUrls: ['../styles/user-detail.component.css']
 })
 export class UserAddComponent extends AbstractEditComponent implements OnInit {
     constructor(protected userService: UserService,
