@@ -29,6 +29,7 @@ export class UserEditComponent extends AbstractEditComponent implements OnInit {
     }
 
     onRoleSelect(value: string): void {
+
         this.roleService.getRoles().then(roles => {
             let selectedRole = roles.find(r => r.name == value);
             this.user.role = selectedRole;

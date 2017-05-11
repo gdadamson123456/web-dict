@@ -2,42 +2,53 @@
     <h2>{{user.login}} details:</h2>
     <form (ngSubmit)="save()" #userForm="ngForm">
         <div class="form-group">
-            <label for="login">login: </label>
-            <input type="text" [(ngModel)]="user.login" id="login" name="login" placeholder="login" [readonly]="isReadonly" required minlength="2" #login="ngModel" class="form-control"/>
-            <div [hidden]="login.valid || login.pristine" class="alert alert-danger">
-                Login is required and should be longer than 2 symbols
+            <label for="login">Login: </label>
+            <input type="text" id="login" name="login" placeholder="login" class="form-control"
+                   required minlength="2" maxlength="24"
+                   [(ngModel)]="user.login" [readonly]="isReadonly" #login="ngModel"/>
+            <div [hidden]="login.valid || login.pristine"
+                 class="alert alert-danger">
+                Login is required and should be longer than 2 symbols and less than 24
             </div>
         </div>
         <div class="form-group">
             <label for="password">password: </label>
-            <input type="password" [(ngModel)]="user.password" id="password" name="password" placeholder="password" required minlength="4" #password="ngModel" class="form-control"/>
-            <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+            <input type="password" id="password" name="password" placeholder="password" class="form-control"
+                   required minlength="4"
+                   [(ngModel)]="user.password" #password="ngModel"/>
+            <div [hidden]="password.valid || password.pristine"
+                 class="alert alert-danger">
                 Password is required and should be longer than 4 symbols
             </div>
         </div>
         <div class="form-group">
             <label for="password-repeat">password repeat: </label>
-            <input type="password" [(ngModel)]="user.password_repeat" id="password-repeat" name="password-repeat" placeholder="password" required  minlength="4" #passwordRepeat="ngModel" class="form-control"/>
-            <div [hidden]="passwordRepeat.valid || passwordRepeat.pristine" class="alert alert-danger">
+            <input type="password" id="password-repeat" name="password-repeat" placeholder="password" class="form-control"
+                   required minlength="4"
+                   [(ngModel)]="user.password_repeat" #passwordRepeat="ngModel"/>
+            <div [hidden]="passwordRepeat.valid || passwordRepeat.pristine"
+                 class="alert alert-danger">
                 Password is required and should be longer than 4 symbols
             </div>
         </div>
         <div class="form-group">
             <label for="email">email: </label>
-            <input type="email" [(ngModel)]="user.email" id="email" name="email" placeholder="email" required #email="ngModel" class="form-control"/>
+            <input type="email" id="email" name="email" placeholder="email" class="form-control"
+                   required
+                   [(ngModel)]="user.email" #email="ngModel"/>
             <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
                 Email is required
             </div>
         </div>
         <div class="form-group">
             <label for="role">role: </label>
-            <select id="role" (change)="onRoleSelect($event.target.value)" required name="role" class="form-control">
+            <select id="role" (change)="onRoleSelect($event.target.value)" name="role" required class="form-control">
                 <option [ngValue]="role" *ngFor="let role of roles" [selected]="user.role.name== role.name">
                     {{role.name}}
                 </option>
             </select>
         </div>
-        <button class="btn btn-success" class="btn btn-success" [disabled]="!userForm.form.valid">Save</button>
+        <button type="submit" class="btn btn-success" [disabled]="!userForm.form.valid">Save</button>
+        <button type="button" class="btn btn-default" (click)="goBack()">Cancel</button>
     </form>
-    <button class="btn btn-default" (click)="goBack()">Cancel</button>
 </div>
