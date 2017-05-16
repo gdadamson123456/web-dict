@@ -39,7 +39,7 @@ export class UserListComponent implements OnInit {
     }
 
     edit(user: User): void {
-        this.router.navigate(['users/edit', user.id]);
+        this.router.navigate(['admin/edit', user.id]);
     }
 
     onSelect(user: User): void {

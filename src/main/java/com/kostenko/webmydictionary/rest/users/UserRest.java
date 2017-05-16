@@ -31,10 +31,10 @@ public class UserRest {
         return userService.findAll();
     }
 
-    @RequestMapping(value = "/{login}", method = RequestMethod.GET)
-    public User getUser(@PathVariable(value = "login") String login) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public User getUser(@PathVariable(value = "id") String login) {
         log.debug("in get concrete user. id=" + login);
-        return userService.findByLogin(login);
+        return userService.findById(login);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

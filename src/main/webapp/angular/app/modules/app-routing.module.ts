@@ -5,10 +5,10 @@ import {UserEditComponent} from "../components/user-edit.component";
 import {UserAddComponent} from "../components/user-add.component";
 
 const routes: Routes = [
-    {path: '', redirectTo: '/users', pathMatch: 'full'},
-    {path: 'users', component: UserListComponent},
-    {path: 'users/edit/:id', component: UserEditComponent},
-    {path: 'users/add', component: UserAddComponent}
+    {path: '', redirectTo: 'admin', pathMatch: 'full'},
+    {path: 'admin', component: UserListComponent},
+    {path: 'admin/edit/:id', component: UserEditComponent},
+    {path: 'admin/add', component: UserAddComponent}
 ];
 
 @NgModule({

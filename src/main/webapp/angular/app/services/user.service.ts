@@ -6,7 +6,7 @@ import {User} from "../objects/user";
 @Injectable()
 export class UserService {
     private headers = new Headers({'Content-Type': 'application/json'});
-    private usersUrl = 'api/users';  // URL to web api
+    private usersUrl = window.location.protocol + '//' + window.location.host+'/api/rest/users';  // URL to web api
 
     constructor(private http: Http) {
     }
@@ -14,7 +14,8 @@ export class UserService {
     getUsers(): Promise<User[]> {
         return this.http.get(this.usersUrl)
             .toPromise()
-            .then(response => response.json().data as User[])
+            .then(response =>
+                response.json() as User[])
             .catch(this.handleError);
     }
 
@@ -22,7 +23,8 @@ export class UserService {
         const url = `${this.usersUrl}/${id}`;
         return this.http.get(url)
             .toPromise()
-            .then(response => response.json().data as User)
+            .then(response =>
+                response.json() as User)
             .catch(this.handleError);
     }
 
@@ -38,7 +40,7 @@ export class UserService {
         return this.http
             .post(this.usersUrl, JSON.stringify(user), {headers: this.headers})
             .toPromise()
-            .then(res => res.json().data)
+            .then(res => res.json())
             .catch(this.handleError);
     }
 

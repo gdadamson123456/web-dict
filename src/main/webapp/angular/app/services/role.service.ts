@@ -5,7 +5,7 @@ import {Role} from "../objects/role";
 
 @Injectable()
 export class RoleService {
-    private rolesUrl = 'api/roles';  // URL to web api
+    private rolesUrl = window.location.protocol + '//' + window.location.host+'/api/rest/roles';  // URL to web api
 
     constructor(private http: Http) {
     }
@@ -13,7 +13,7 @@ export class RoleService {
     getRoles(): Promise<Role[]> {
         return this.http.get(this.rolesUrl)
             .toPromise()
-            .then(response => response.json().data as Role[])
+            .then(response => response.json() as Role[])
             .catch(this.handleError);
     }
 
@@ -22,7 +22,7 @@ export class RoleService {
         const url = `${this.rolesUrl}/${id}`;
         return this.http.get(url)
             .toPromise()
-            .then(response => response.json().data as Role)
+            .then(response => response.json() as Role)
             .catch(this.handleError);
     }
 

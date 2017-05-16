@@ -28,6 +28,7 @@ public final class Constants {
 
     public final static class View {
         public static final String ADMIN = "AdminView";
+        public static final String ADMIN_ANGULAR = "AdminAngularView";
         public static final String EDIT_USER = "EditUserView";
         public static final String ERROR = "ErrorView";
         public static final String LOGIN = "LoginView";
