@@ -22,7 +22,8 @@ export class RoleService {
         const url = `${this.rolesUrl}/${id}`;
         return this.http.get(url)
             .toPromise()
-            .then(response => response.json() as Role)
+            .then(response =>
+                response.json() as Role)
             .catch(this.handleError);
     }
 

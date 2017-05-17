@@ -45,6 +45,11 @@ public class RoleServiceImpl implements RoleService, Serializable {
     }
 
     @Override
+    public Role findById(String id) {
+        return roleRepository.findById(id);
+    }
+
+    @Override
     public List<Role> findAll() {
         return roleRepository.findAll();
     }

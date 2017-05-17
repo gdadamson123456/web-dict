@@ -10,9 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.kostenko.webmydictionary.utils.Constants.ROLE_ADMIN;
-import static com.kostenko.webmydictionary.utils.Constants.ROLE_USER;
-import static java.lang.String.format;
 
 @Slf4j
 @Configuration
@@ -35,8 +32,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/admin/**").access(format("hasRole('%s')", ROLE_ADMIN))
-                .antMatchers("/user/**").access(format("hasAnyRole('%s', '%s')", ROLE_USER, ROLE_ADMIN))
+//                .antMatchers("/admin/**").access(format("hasRole('%s')", ROLE_ADMIN))
+//                .antMatchers("/user/**").access(format("hasAnyRole('%s', '%s')", ROLE_USER, ROLE_ADMIN))
                 .and().formLogin()
                 .permitAll()
                 .loginPage("/log")
@@ -46,7 +43,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .and().logout()
                 .logoutSuccessUrl("/")
-                .and().csrf();
+                .and().anonymous().and().csrf().disable();
     }
 
     @Override

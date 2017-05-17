@@ -31,8 +31,8 @@ public class RoleRest {
         return roleService.findAll();
     }
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
-    public Role getRole(@PathVariable(value = "name") String name) {
-        return roleService.findByName(name);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Role getRole(@PathVariable(value = "id") String id) {
+        return roleService.findById(id);
     }
 }
