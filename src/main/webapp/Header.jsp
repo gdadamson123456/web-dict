@@ -7,6 +7,7 @@
     </form>
     <script>
         function formSubmit() {
+            signOut();
             document.getElementById("logoutForm").submit();
         }
     </script>
@@ -15,4 +16,13 @@
                 ${sessionUser.login} <a href="javascript:formSubmit()">(Logout)</a>
         </h5>
     </c:if>
+    <a href="#" onclick="signOut();">Sign out</a>
+    <script>
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        }
+    </script>
 </div>

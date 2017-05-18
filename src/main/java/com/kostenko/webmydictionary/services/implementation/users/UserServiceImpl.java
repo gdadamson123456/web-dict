@@ -58,4 +58,9 @@ public class UserServiceImpl implements UserService, Serializable {
     public User findById(String id) {
         return userRepository.findById(id);
     }
+
+    @Override
+    public User findBySessionId(String sessionId) {
+        return userRepository.findBySessionId(sessionId);
+    }
 }

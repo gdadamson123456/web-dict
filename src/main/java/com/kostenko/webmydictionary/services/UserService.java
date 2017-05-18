@@ -18,4 +18,6 @@ public interface UserService {
     User findByEmail(String email);
 
     User findById(String id);
+
+    User findBySessionId(String sessionId);
 }

@@ -16,6 +16,7 @@ public class User implements Serializable {
     private String login;
     private String password;
     private String email;
+    private String sessionId;
     private Role role;
 
     public User() {
@@ -31,5 +32,10 @@ public class User implements Serializable {
             this.role = role;
         }
         log.debug(String.format("Creating user with login:%s, password:%s, email:%s, role:%s", login, password, email, role));
+    }
+
+    public User(final String login, final String password, final String email, final Role role, final String sessionId) {
+        this(login, password, email, role);
+        this.sessionId = sessionId;
     }
 }
