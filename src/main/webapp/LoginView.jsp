@@ -5,21 +5,12 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
     <link href="css/main.css" rel="stylesheet" type="text/css">
-    <title>Login Page...</title>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?" async defer></script>
     <meta name="google-signin-client_id" content="976118425813-o3mt3u1t3navdle20s4u8g081ichch7d.apps.googleusercontent.com">
+    <title>Login Page...</title>
 </head>
 <body onload='document.loginForm.username.focus();'>
 <div id="login-box">
-    <a href="#" onclick="signOut();">Sign out</a>
-    <script>
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-                console.log('User signed out.');
-            });
-        }
-    </script>
     <div align="center" class="login shadow op">
         <c:if test="${not empty error}">
             <div class="error">${error}</div>
@@ -52,14 +43,21 @@
                                 var id_token = googleUser.getAuthResponse().id_token;
                                 var root = window.location.protocol + '//' + window.location.host;
                                 var endpointAddress = root + '/tokensignin';
-                                var xhr = new XMLHttpRequest();
-                                xhr.open('POST', endpointAddress);
-                                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                                xhr.onload = function () {
-                                    console.log('Signed in as: ' + xhr.responseURL);
-//                                    window.location = xhr.responseURL;
-                                };
-                                xhr.send('idtoken=' + id_token);
+                                var form = document.createElement("form");
+                                form.setAttribute("method", "post");
+                                form.setAttribute("action", endpointAddress);
+                                var params = {idtoken: id_token};
+                                for (var key in params) {
+                                    if (params.hasOwnProperty(key)) {
+                                        var hiddenField = document.createElement("input");
+                                        hiddenField.setAttribute("type", "hidden");
+                                        hiddenField.setAttribute("name", key);
+                                        hiddenField.setAttribute("value", params[key]);
+                                        form.appendChild(hiddenField);
+                                    }
+                                }
+                                document.body.appendChild(form);
+                                form.submit();
                             }
                         </script>
                         <br/></td>

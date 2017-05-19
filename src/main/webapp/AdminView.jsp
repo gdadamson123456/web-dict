@@ -3,6 +3,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
     <link href="../css/main.css" rel="stylesheet" type="text/css">
     <title>Admin</title>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="976118425813-o3mt3u1t3navdle20s4u8g081ichch7d.apps.googleusercontent.com">
 </head>
 <body>
 <jsp:include page="/Header.jsp"/>

@@ -78,8 +78,8 @@ public class WelcomeController implements Serializable {
                     user = new User(email.substring(0, email.indexOf("@")), "welcome", email, roleService.findByName("ROLE_user"), userId);
                     userService.create(user);
                 }
-                model.addAttribute("token", userId);
-                return Constants.Controller.RedirectionTo.LOGIN;
+//                model.addAttribute("token", userId);
+                return getUserHomeLink(user, model);
             }
         } else {
             System.out.println("Invalid ID token.");
