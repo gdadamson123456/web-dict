@@ -10,7 +10,7 @@ import com.kostenko.webmydictionary.dao.domain.users.User;
 import com.kostenko.webmydictionary.services.RoleService;
 import com.kostenko.webmydictionary.services.UserService;
 import com.kostenko.webmydictionary.utils.Constants;
-import com.kostenko.webmydictionary.utils.Utils;
+import com.kostenko.webmydictionary.utils.SecurityContextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,8 +36,8 @@ public class RegistrationController extends AbstractController implements Serial
     private final String verifyUrl;
 
     @Autowired
-    public RegistrationController(RoleService roleService, UserService userService, Utils utils, ExistingUserValidator userValidator, AppConfigLoader appConfigLoader) {
-        super(roleService, userService, utils);
+    public RegistrationController(RoleService roleService, UserService userService, SecurityContextUtils securityContextUtils, ExistingUserValidator userValidator, AppConfigLoader appConfigLoader) {
+        super(roleService, userService, securityContextUtils);
         checkNotNull(userValidator, "UserValidator can't be null");
         checkNotNull(appConfigLoader, "AppConfigLoader can't be null");
         this.userValidator = userValidator;
@@ -58,8 +58,7 @@ public class RegistrationController extends AbstractController implements Serial
     }
 
     @RequestMapping(value = Constants.Controller.Path.REGISTRATION, method = RequestMethod.POST)
-    public String registerUser(@ModelAttribute(Constants.MODEL_EDIT_FORM) @Valid EditForm editForm,
-                               BindingResult bindingResult,
+    public String registerUser(@ModelAttribute(Constants.MODEL_EDIT_FORM) @Valid EditForm editForm, BindingResult bindingResult,
                                @RequestParam("g-recaptcha-response") String gRecaptchaResponse, Model model) {
         ReCaptchaCheckerResponse response = ReCaptchaChecker.checkReCaptcha(secretKey, gRecaptchaResponse, verifyUrl);
         userValidator.validate(editForm, bindingResult);

@@ -6,7 +6,7 @@ import com.kostenko.webmydictionary.dao.domain.users.User;
 import com.kostenko.webmydictionary.services.RoleService;
 import com.kostenko.webmydictionary.services.UserService;
 import com.kostenko.webmydictionary.utils.Constants;
-import com.kostenko.webmydictionary.utils.Utils;
+import com.kostenko.webmydictionary.utils.SecurityContextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -33,8 +33,8 @@ public class AddController extends AbstractController implements Serializable {
     private final ExistingUserValidator userValidator;
 
     @Autowired
-    public AddController(RoleService roleService, UserService userService, Utils utils, ExistingUserValidator userValidator) {
-        super(roleService, userService, utils);
+    public AddController(RoleService roleService, UserService userService, SecurityContextUtils securityContextUtils, ExistingUserValidator userValidator) {
+        super(roleService, userService, securityContextUtils);
         checkNotNull(userValidator, "UserValidator can't be null");
         this.userValidator = userValidator;
     }
@@ -48,8 +48,7 @@ public class AddController extends AbstractController implements Serializable {
     }
 
     @RequestMapping(value = ADMIN_ADD, method = RequestMethod.POST)
-    public String addUser(@ModelAttribute(Constants.MODEL_EDIT_FORM) @Valid EditForm editForm,
-                          BindingResult bindingResult, Model model) {
+    public String addUser(@ModelAttribute(Constants.MODEL_EDIT_FORM) @Valid EditForm editForm, BindingResult bindingResult, Model model) {
         userValidator.validate(editForm, bindingResult);
         if (bindingResult.hasErrors()) {
             log.warn("input data is incorrect");

@@ -5,7 +5,7 @@ import com.kostenko.webmydictionary.dao.domain.users.User;
 import com.kostenko.webmydictionary.services.RoleService;
 import com.kostenko.webmydictionary.services.UserService;
 import com.kostenko.webmydictionary.utils.Constants;
-import com.kostenko.webmydictionary.utils.Utils;
+import com.kostenko.webmydictionary.utils.SecurityContextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -34,26 +34,26 @@ public class EditController extends AbstractController implements Serializable {
     private static final String MODE_EDIT = "edit";
 
     @Autowired
-    public EditController(RoleService roleService, UserService userService, Utils utils) {
-        super(roleService, userService, utils);
+    public EditController(RoleService roleService, UserService userService, SecurityContextUtils securityContextUtils) {
+        super(roleService, userService, securityContextUtils);
     }
 
     @RequestMapping(value = ADMIN_EDIT, method = RequestMethod.GET)
     public String showEditUserView(@RequestParam("login") String login, Model model) {
+        log.debug("login: %s", login);
         EditForm form = new EditForm();
         form.setUserData(userService.findByLogin(login));
-        setRolesToModel(model, getCorrectRolesList(utils.getUser()));
+        setRolesToModel(model, getCorrectRolesList(securityContextUtils.getAuthenticatedUser()));
         model.addAttribute(Constants.MODEL_EDIT_FORM, form);
         model.addAttribute(Constants.MODE, MODE_EDIT);
         return Constants.View.EDIT_USER;
     }
 
     @RequestMapping(value = ADMIN_EDIT, method = RequestMethod.POST)
-    public String editUser(@ModelAttribute(Constants.MODEL_EDIT_FORM) @Valid EditForm editForm,
-                           BindingResult bindingResult, Model model) {
+    public String editUser(@ModelAttribute(Constants.MODEL_EDIT_FORM) @Valid EditForm editForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             log.warn("input data is incorrect");
-            setRolesToModel(model, getCorrectRolesList(utils.getUser()));
+            setRolesToModel(model, getCorrectRolesList(securityContextUtils.getAuthenticatedUser()));
             model.addAttribute(Constants.MODE, MODE_EDIT);
             return Constants.View.EDIT_USER;
         }

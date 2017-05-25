@@ -3,7 +3,7 @@ package com.kostenko.webmydictionary.controllers.users;
 import com.kostenko.webmydictionary.dao.domain.users.User;
 import com.kostenko.webmydictionary.services.UserService;
 import com.kostenko.webmydictionary.utils.Constants;
-import com.kostenko.webmydictionary.utils.Utils;
+import com.kostenko.webmydictionary.utils.SecurityContextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -33,7 +33,7 @@ public class DeleteController implements Serializable {
 
     @RequestMapping(value = ADMIN_DELETE, method = RequestMethod.GET)
     public String deleteUser(@RequestParam("id") String id, Model model) {
-        User current = new Utils().getUser();
+        User current = new SecurityContextUtils().getAuthenticatedUser();
         User user = userService.findById(id);
         if (current != null && !current.equals(user)) {
             if (user != null) {

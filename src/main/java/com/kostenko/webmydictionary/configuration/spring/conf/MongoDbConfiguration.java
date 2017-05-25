@@ -17,7 +17,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -44,8 +44,7 @@ public class MongoDbConfiguration {
         final String serverFormattedString = String.format("%s:%s", host, port);
         final ServerAddress serverAddress = new ServerAddress(serverFormattedString);
         final MongoCredential mongoCredential = MongoCredential.createCredential(username, dbName, password.toCharArray());
-        final List<MongoCredential> mongoCredentialList = new ArrayList<>();
-        mongoCredentialList.add(mongoCredential);
+        final List<MongoCredential> mongoCredentialList = Collections.singletonList(mongoCredential);
         final MongoClient mongo = new MongoClient(serverAddress, mongoCredentialList);
         final MongoDbFactory mongoDbFactory = new SimpleMongoDbFactory(mongo, dbName);
         return new MongoTemplate(mongoDbFactory);

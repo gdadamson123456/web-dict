@@ -42,7 +42,7 @@
                             function onSignIn(googleUser) {
                                 var id_token = googleUser.getAuthResponse().id_token;
                                 var root = window.location.protocol + '//' + window.location.host;
-                                var endpointAddress = root + '/tokensignin';
+                                var endpointAddress = root + '/logingoogle';
                                 var form = document.createElement("form");
                                 form.setAttribute("method", "post");
                                 form.setAttribute("action", endpointAddress);

@@ -45,8 +45,7 @@ public class UnitRest {
     }
 
     @RequestMapping(value = "/{from}/{to}/{message}", method = RequestMethod.GET)
-    public ResponseEntity<Unit> getTranslationOfUnit(@PathVariable String from, @PathVariable String to,
-                                                     @PathVariable String message) {
+    public ResponseEntity<Unit> getTranslationOfUnit(@PathVariable String from, @PathVariable String to, @PathVariable String message) {
         log.debug(String.format("in getTranslationOfUnit. /{%1$S}/{%2$S}/{%3$S}", from, to, message));
         Unit translate = translationService.translate(from, to, message);
         return new ResponseEntity<>(translate, HttpStatus.OK);

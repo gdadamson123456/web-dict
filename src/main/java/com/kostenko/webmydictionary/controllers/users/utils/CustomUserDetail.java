@@ -9,13 +9,13 @@ import java.util.Collection;
 
 @Slf4j
 @Data
-public class UserDetailImpl extends org.springframework.security.core.userdetails.User {
+public class CustomUserDetail extends org.springframework.security.core.userdetails.User {
     private static final long serialVersionUID = -5487662132658679522L;
     private User user;
 
-    public UserDetailImpl(String username, String password, boolean enabled, boolean accountNonExpired,
-                          boolean credentialsNonExpired, boolean accountNonLocked,
-                          Collection<? extends GrantedAuthority> authorities) {
+    public CustomUserDetail(String username, String password, boolean enabled, boolean accountNonExpired,
+                            boolean credentialsNonExpired, boolean accountNonLocked,
+                            Collection<? extends GrantedAuthority> authorities) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
     }
 }

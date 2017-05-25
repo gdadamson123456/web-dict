@@ -1,6 +1,6 @@
 package com.kostenko.webmydictionary.utils;
 
-import com.kostenko.webmydictionary.controllers.users.utils.UserDetailImpl;
+import com.kostenko.webmydictionary.controllers.users.utils.CustomUserDetail;
 import com.kostenko.webmydictionary.dao.domain.users.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -12,14 +12,14 @@ import java.io.Serializable;
 
 @Slf4j
 @Service
-public class Utils implements Serializable {
+public class SecurityContextUtils implements Serializable {
     private static final long serialVersionUID = 4181604947630989917L;
 
-    public User getUser() {
+    public User getAuthenticatedUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = null;
         if (!(auth instanceof AnonymousAuthenticationToken)) {
-            UserDetailImpl userDetails = (UserDetailImpl) auth.getPrincipal();
+            CustomUserDetail userDetails = (CustomUserDetail) auth.getPrincipal();
             user = userDetails.getUser();
         }
         return user;
