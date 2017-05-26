@@ -31,10 +31,6 @@ public abstract class AbstractController {
         this.userService = userService;
     }
 
-    protected void setRolesToModel(Model model, List<String> roles) {
-        model.addAttribute("roles", roles);
-    }
-
     protected User getUser(EditForm editForm) {
         User user = editForm.getUserWithoutRole();
         String role = editForm.getRole();

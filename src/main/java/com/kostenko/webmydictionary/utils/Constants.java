@@ -18,7 +18,6 @@ public final class Constants {
         }
 
         public final static class RedirectionTo {
-            public static final String ERROR = "redirect:/error";
             public static final String LOGIN = "redirect:" + Path.LOGIN;
             public static final String ADMIN = "redirect:" + Path.ADMIN;
             public static final String USER = "redirect:" + Path.USER;
@@ -27,8 +26,7 @@ public final class Constants {
     }
 
     public final static class View {
-        public static final String ADMIN = "AdminView";
-        public static final String ADMIN_ANGULAR = "AdminAngularView";
+        public static final String ADMIN = "AdminAngularView";
         public static final String EDIT_USER = "EditUserView";
         public static final String ERROR = "ErrorView";
         public static final String LOGIN = "LoginView";

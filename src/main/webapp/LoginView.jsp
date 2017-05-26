@@ -5,6 +5,7 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
     <link href="css/main.css" rel="stylesheet" type="text/css">
+    <script src="js/utils.js"></script>
     <script src="https://apis.google.com/js/platform.js?" async defer></script>
     <meta name="google-signin-client_id" content="976118425813-o3mt3u1t3navdle20s4u8g081ichch7d.apps.googleusercontent.com">
     <title>Login Page...</title>
@@ -38,28 +39,6 @@
                 <tr>
                     <td colspan="3" align="right"><br>
                         <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                        <script type="text/javascript">
-                            function onSignIn(googleUser) {
-                                var id_token = googleUser.getAuthResponse().id_token;
-                                var root = window.location.protocol + '//' + window.location.host;
-                                var endpointAddress = root + '/logingoogle';
-                                var form = document.createElement("form");
-                                form.setAttribute("method", "post");
-                                form.setAttribute("action", endpointAddress);
-                                var params = {idtoken: id_token};
-                                for (var key in params) {
-                                    if (params.hasOwnProperty(key)) {
-                                        var hiddenField = document.createElement("input");
-                                        hiddenField.setAttribute("type", "hidden");
-                                        hiddenField.setAttribute("name", key);
-                                        hiddenField.setAttribute("value", params[key]);
-                                        form.appendChild(hiddenField);
-                                    }
-                                }
-                                document.body.appendChild(form);
-                                form.submit();
-                            }
-                        </script>
                         <br/></td>
                 </tr>
                 <tr>
